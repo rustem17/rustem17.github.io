@@ -1,1 +1,199 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rustem Turtayev</title>
+    <meta name="description" content="Rustem Turtayev — Research Engineer at Palisade Research.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23191d24'/%3E%3Cg fill='%23e9e6dc'%3E%3Ccircle cx='8' cy='8' r='1.4'/%3E%3Ccircle cx='11' cy='8' r='1.4'/%3E%3Ccircle cx='11' cy='5' r='1.4'/%3E%3Ccircle cx='5' cy='5' r='1.4'/%3E%3Ccircle cx='5' cy='11' r='1.4'/%3E%3Ccircle cx='8' cy='11' r='1.4'/%3E%3C/g%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #191d24;
+            color: #e9e6dc;
+            font-family: "Roboto Mono", ui-monospace, "SF Mono", Menlo, monospace;
+            font-size: 16px;
+            line-height: 1.55;
+        }
+        #ulam {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 55vw;
+            height: 55vh;
+            z-index: -1;
+            -webkit-mask-image: radial-gradient(130% 130% at 100% 100%, #000 50%, transparent 85%);
+            mask-image: radial-gradient(130% 130% at 100% 100%, #000 50%, transparent 85%);
+        }
+        main {
+            max-width: 55ch;
+            padding: 3em 0 3em 6ch;
+        }
+        h1 {
+            font-size: 1.5em;
+            font-weight: normal;
+            margin: 0 0 1.6em;
+        }
+        h2 {
+            font-size: 1em;
+            font-weight: normal;
+            color: rgba(233, 230, 220, 0.55);
+            margin: 2.8em 0 0.8em;
+        }
+        p { margin: 0 0 1em; }
+        a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+        a:hover { color: rgba(255, 255, 255, 0.6); }
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4em 3ch;
+            margin: 1.8em 0 0;
+        }
+        .links a { white-space: nowrap; }
+        .publication { margin-bottom: 1.3em; }
+        .publication .authors {
+            font-size: 0.85em;
+            color: rgba(233, 230, 220, 0.55);
+        }
+        footer {
+            margin-top: 4em;
+            font-size: 0.8em;
+            color: rgba(233, 230, 220, 0.45);
+        }
+        footer a { color: rgba(233, 230, 220, 0.6); }
+        @media (max-width: 720px) {
+            main { padding: 2em 1.2em; }
+            #ulam {
+                width: 100vw;
+                height: 45vh;
+                -webkit-mask-image: radial-gradient(120% 110% at 100% 100%, #000 35%, transparent 75%);
+                mask-image: radial-gradient(120% 110% at 100% 100%, #000 35%, transparent 75%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="ulam"></canvas>
+    <main>
+        <h1>Rustem Turtayev</h1>
+
+        <p>I'm interested in AI safety and alignment. I'm currently a Research Scholar at <a href="https://www.matsprogram.org">MATS</a>, working with Prof. Shi Feng on ELK-type research — automated investigation of model behavior using steering vectors and linear probes. Before that I was a Research Engineer at <a href="https://palisaderesearch.org">Palisade Research</a>, measuring what LLM agents can do in offensive security settings, and how they misbehave.</p>
+
+        <div class="links">
+            <a href="https://github.com/rustem17">[GitHub]</a>
+            <a href="https://scholar.google.com/citations?user=gkZBVJIAAAAJ&hl=en">[Google Scholar]</a>
+            <a href="https://linkedin.com/in/rustem-turtayev-7b932b16a">[LinkedIn]</a>
+            <a href="/resume.pdf">[Resume]</a>
+        </div>
+
+        <h2>Publications and Preprints</h2>
+        <div class="publication">
+            <div>Building Comparative Motivation Profiles with Instrumental Interventions</div>
+            <div class="authors">David Vella Zarb, Rustem Turtayev, Taywon Min, Jinghua Ou, Shi Feng · 2026</div>
+            <a href="https://arxiv.org/abs/2606.08243">[arXiv]</a>
+        </div>
+        <div class="publication">
+            <div>Misalignment Bounty: Crowdsourcing AI Agent Misbehavior</div>
+            <div class="authors">Rustem Turtayev, Natalia Fedorova, Oleg Serikov, Sergey Koldyba, Lev Avagyan, Dmitrii Volkov · 2025</div>
+            <a href="https://arxiv.org/abs/2510.19738">[arXiv]</a> <a href="https://palisaderesearch.org/blog/misalignment-bounty">[blog]</a> <a href="https://huggingface.co/datasets/palisaderesearch/Misalignment-Bounty-Submissions">[dataset]</a>
+        </div>
+        <div class="publication">
+            <div>CayleyPy Growth: Efficient Growth Computations and Hundreds of New Conjectures on Cayley Graphs</div>
+            <div class="authors">A. Chervov et al. (CayleyPy collaboration) · 2025 · contributed talk at NeurIPS MATH-AI Workshop</div>
+            <a href="https://arxiv.org/abs/2509.19162">[arXiv]</a>
+        </div>
+        <div class="publication">
+            <div>CayleyPy RL: Pathfinding and Reinforcement Learning on Cayley Graphs</div>
+            <div class="authors">A. Chervov et al. (CayleyPy collaboration) · 2025 · Advances in Theoretical and Mathematical Physics 30(1), 2026</div>
+            <a href="https://arxiv.org/abs/2502.18663">[arXiv]</a>
+        </div>
+        <div class="publication">
+            <div>Hacking CTFs with Plain Agents</div>
+            <div class="authors">Rustem Turtayev, Artem Petrov, Dmitrii Volkov, Denis Volk · 2024</div>
+            <a href="https://arxiv.org/abs/2412.02776">[arXiv]</a> <a href="https://github.com/palisaderesearch/intercode">[code]</a>
+        </div>
+
+        <h2>Contact</h2>
+        <p>u1am (dot) n1t7 (at) gmail (dot) com</p>
+
+        <footer>
+            Growing in the corner is an <a href="https://en.wikipedia.org/wiki/Ulam_spiral">Ulam spiral</a>:
+            integers wound into a square spiral, with a dot at every prime.
+        </footer>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('ulam');
+        const ctx = canvas.getContext('2d');
+        const S = 7;
+        const RATE = 60;
+        let raf;
+
+        function isPrime(n) {
+            if (n < 2) return false;
+            if (n % 2 === 0) return n === 2;
+            for (let i = 3; i * i <= n; i += 2) if (n % i === 0) return false;
+            return true;
+        }
+
+        function start() {
+            cancelAnimationFrame(raf);
+            const dpr = devicePixelRatio || 1;
+            const w = canvas.clientWidth, h = canvas.clientHeight;
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = '#d9dbde';
+            const cx = w / 2, cy = h / 2;
+            const maxOff = Math.max(cx, cy) + S;
+
+            let x = 0, y = 0, dx = 1, dy = 0, seg = 1, segLeft = 1, turns = 0, n = 1;
+
+            function step() {
+                if (isPrime(n)) {
+                    ctx.beginPath();
+                    ctx.arc(cx + x * S, cy + y * S, 2, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+                x += dx; y += dy; n++;
+                if (--segLeft === 0) {
+                    [dx, dy] = [dy, -dx];
+                    if (++turns % 2 === 0) seg++;
+                    segLeft = seg;
+                }
+                return Math.max(Math.abs(x), Math.abs(y)) * S <= maxOff;
+            }
+
+            if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                while (step());
+                return;
+            }
+            let last = null, carry = 0;
+            function frame(ts) {
+                if (last === null) last = ts;
+                carry += (ts - last) / 1000 * RATE;
+                last = ts;
+                for (; carry >= 1; carry--) if (!step()) return;
+                raf = requestAnimationFrame(frame);
+            }
+            raf = requestAnimationFrame(frame);
+        }
+
+        let resizeTimer;
+        addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(start, 150);
+        });
+        start();
+    </script>
+</body>
+</html>
