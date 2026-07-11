@@ -27,12 +27,11 @@
             width: 55vw;
             height: 55vh;
             z-index: -1;
-            -webkit-mask-image: radial-gradient(130% 130% at 100% 100%, #000 50%, transparent 85%);
-            mask-image: radial-gradient(130% 130% at 100% 100%, #000 50%, transparent 85%);
         }
         main {
             max-width: 55ch;
             padding: 3em 0 3em 6ch;
+            text-shadow: 1px 1px 0 #191d24, 2px 2px 0 #191d24, 0 0 3px #191d24;
         }
         h1 {
             font-size: 1.5em;
@@ -74,8 +73,6 @@
             #ulam {
                 width: 100vw;
                 height: 45vh;
-                -webkit-mask-image: radial-gradient(120% 110% at 100% 100%, #000 35%, transparent 75%);
-                mask-image: radial-gradient(120% 110% at 100% 100%, #000 35%, transparent 75%);
             }
         }
     </style>
@@ -85,12 +82,13 @@
     <main>
         <h1>Rustem Turtayev</h1>
 
-        <p>I'm interested in AI safety and alignment. I'm currently a Research Scholar at <a href="https://www.matsprogram.org">MATS</a>, working with Prof. Shi Feng on ELK-type research — automated investigation of model behavior using steering vectors and linear probes. Before that I was a Research Engineer at <a href="https://palisaderesearch.org">Palisade Research</a>, measuring what LLM agents can do in offensive security settings, and how they misbehave.</p>
+        <p>I'm interested in alignment and scalable oversight. I'm currently a Research Scholar at <a href="https://www.matsprogram.org">MATS</a> in London, working with Prof. Shi Feng on model organisms — how realistic they are, and how SFT and RL training regimes differ for creating them — and on applying invariance to alignment problems. Before that I was a Research Engineer at <a href="https://palisaderesearch.org">Palisade Research</a>, measuring what LLM agents can do in offensive security settings, and how they misbehave.</p>
 
         <div class="links">
             <a href="https://github.com/rustem17">[GitHub]</a>
             <a href="https://scholar.google.com/citations?user=gkZBVJIAAAAJ&hl=en">[Google Scholar]</a>
             <a href="https://linkedin.com/in/rustem-turtayev-7b932b16a">[LinkedIn]</a>
+            <a href="https://www.lesswrong.com/users/rustem">[LessWrong]</a>
             <a href="/resume.pdf">[Resume]</a>
         </div>
 
@@ -153,8 +151,9 @@
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             ctx.clearRect(0, 0, w, h);
             ctx.fillStyle = '#d9dbde';
-            const cx = w / 2, cy = h / 2;
-            const maxOff = Math.max(cx, cy) + S;
+            const side = Math.min(w, h);
+            const cx = w - side / 2, cy = h - side / 2;
+            const maxOff = side / 2 - S;
 
             let x = 0, y = 0, dx = 1, dy = 0, seg = 1, segLeft = 1, turns = 0, n = 1;
 
