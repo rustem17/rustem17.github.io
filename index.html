@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rustem Turtayev</title>
     <meta name="description" content="Rustem Turtayev — Research Engineer at Palisade Research.">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23191d24'/%3E%3Cg fill='%23e9e6dc'%3E%3Ccircle cx='8' cy='8' r='1.4'/%3E%3Ccircle cx='11' cy='8' r='1.4'/%3E%3Ccircle cx='11' cy='5' r='1.4'/%3E%3Ccircle cx='5' cy='5' r='1.4'/%3E%3Ccircle cx='5' cy='11' r='1.4'/%3E%3Ccircle cx='8' cy='11' r='1.4'/%3E%3C/g%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23e9e6dc'/%3E%3Cg fill='%23191d24'%3E%3Ccircle cx='8' cy='8' r='1.4'/%3E%3Ccircle cx='11' cy='8' r='1.4'/%3E%3Ccircle cx='11' cy='5' r='1.4'/%3E%3Ccircle cx='5' cy='5' r='1.4'/%3E%3Ccircle cx='5' cy='11' r='1.4'/%3E%3Ccircle cx='8' cy='11' r='1.4'/%3E%3C/g%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -14,8 +14,8 @@
         body {
             margin: 0;
             min-height: 100vh;
-            background: #191d24;
-            color: #e9e6dc;
+            background: #e9e6dc;
+            color: #191d24;
             font-family: "Roboto Mono", ui-monospace, "SF Mono", Menlo, monospace;
             font-size: 16px;
             line-height: 1.55;
@@ -27,11 +27,12 @@
             width: 55vw;
             height: 55vh;
             z-index: -1;
+            filter: blur(3px);
         }
         main {
             max-width: 55ch;
             padding: 3em 0 3em 6ch;
-            text-shadow: 1px 1px 0 #191d24, 2px 2px 0 #191d24, 0 0 3px #191d24;
+            text-shadow: 1px 1px 0 #e9e6dc, 2px 2px 0 #e9e6dc, 0 0 3px #e9e6dc;
         }
         h1 {
             font-size: 1.5em;
@@ -41,15 +42,15 @@
         h2 {
             font-size: 1em;
             font-weight: normal;
-            color: rgba(233, 230, 220, 0.55);
+            color: rgba(25, 29, 36, 0.55);
             margin: 2.8em 0 0.8em;
         }
         p { margin: 0 0 1em; }
         a {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(0, 0, 0, 0.8);
             text-decoration: none;
         }
-        a:hover { color: rgba(255, 255, 255, 0.6); }
+        a:hover { color: rgba(0, 0, 0, 0.6); }
         .links {
             display: flex;
             flex-wrap: wrap;
@@ -60,14 +61,14 @@
         .publication { margin-bottom: 1.3em; }
         .publication .authors {
             font-size: 0.85em;
-            color: rgba(233, 230, 220, 0.55);
+            color: rgba(25, 29, 36, 0.55);
         }
         footer {
             margin-top: 4em;
             font-size: 0.8em;
-            color: rgba(233, 230, 220, 0.45);
+            color: rgba(25, 29, 36, 0.45);
         }
-        footer a { color: rgba(233, 230, 220, 0.6); }
+        footer a { color: rgba(25, 29, 36, 0.6); }
         @media (max-width: 720px) {
             main { padding: 2em 1.2em; }
             #ulam {
@@ -82,7 +83,7 @@
     <main>
         <h1>Rustem Turtayev</h1>
 
-        <p>I'm interested in alignment and scalable oversight. I'm currently a Research Scholar at <a href="https://www.matsprogram.org">MATS</a> in London, working with Prof. Shi Feng on model organisms — how realistic they are, and how SFT and RL training regimes differ for creating them — and on applying invariance to alignment problems. Before that I was a Research Engineer at <a href="https://palisaderesearch.org">Palisade Research</a>, measuring what LLM agents can do in offensive security settings, and how they misbehave.</p>
+        <p>I'm interested in alignment and scalable oversight. I'm currently a Research Scholar at <a href="https://www.matsprogram.org">MATS</a> in London, working with Prof. Shi Feng on model organisms — how realistic they are, and how SFT and RL training regimes differ for creating them — and on applying invariance to alignment problems. Before that I was a Research Engineer at <a href="https://palisaderesearch.org">Palisade Research</a>, measuring what LLM agents can do in offensive security settings, and how they misbehave. I'm also interested in curriculum learning and evolutionary algorithms.</p>
 
         <div class="links">
             <a href="https://github.com/rustem17">[GitHub]</a>
@@ -150,7 +151,7 @@
             canvas.height = h * dpr;
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             ctx.clearRect(0, 0, w, h);
-            ctx.fillStyle = '#d9dbde';
+            ctx.fillStyle = '#2a2f38';
             const side = Math.min(w, h);
             const cx = w - side / 2, cy = h - side / 2;
             const maxOff = side / 2 - S;
