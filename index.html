@@ -71,12 +71,18 @@
         footer a { color: rgba(25, 29, 36, 0.6); }
         .me {
             margin: 4em 0 0;
-            max-width: 280px;
+        }
+        .me .portrait {
+            width: 200px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            overflow: hidden;
         }
         .me img {
             display: block;
-            width: 100%;
+            width: 252.6%;
             height: auto;
+            margin: -126.8% 0 0 -56.6%;
         }
         .me figcaption {
             margin-top: 0.6em;
@@ -99,7 +105,7 @@
 
         <p>I'm interested in alignment and scalable oversight. I'm currently a Research Scholar at <a href="https://www.matsprogram.org">MATS</a> in London, working with Prof. Shi Feng on model organisms — how realistic they are, and how SFT and RL training regimes differ for creating them — and on applying invariance to alignment problems. Before that I was a Research Engineer at <a href="https://palisaderesearch.org">Palisade Research</a>, measuring what LLM agents can do in offensive security settings, and how they misbehave. I'm also interested in curriculum learning and evolutionary algorithms.</p>
 
-        <p>Outside of research I care a lot about music. One day I'd love to build an AI — or just a tool — that helps compose, or simply finds, new great music: pieces that could stand next to Rachmaninoff, Prokofiev, Chopin, Bach, or, closer to our time, Takemitsu.</p>
+        <p>Outside of research I care a lot about music. One day I'd love to build an AI — or just a tool — that helps compose, or simply finds, new great music: pieces that could stand next to the great works of the Romantic and Baroque eras.</p>
 
         <div class="links">
             <a href="https://github.com/rustem17">[GitHub]</a>
@@ -145,7 +151,9 @@
         </footer>
 
         <figure class="me">
-            <img src="almaty.jpeg" alt="Me in Almaty" width="960" height="1280" loading="lazy">
+            <div class="portrait">
+                <img src="almaty.jpeg" alt="Me in Almaty" width="960" height="1280" loading="lazy">
+            </div>
             <figcaption>a photo of me in Almaty</figcaption>
         </figure>
     </main>
