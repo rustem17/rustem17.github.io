@@ -70,7 +70,7 @@
         }
         footer a { color: rgba(25, 29, 36, 0.6); }
         .me {
-            margin: 4em 0 0;
+            margin: 0 0 1.6em;
         }
         .me .portrait {
             width: 200px;
@@ -83,11 +83,6 @@
             width: 252.6%;
             height: auto;
             margin: -126.8% 0 0 -56.6%;
-        }
-        .me figcaption {
-            margin-top: 0.6em;
-            font-size: 0.8em;
-            color: rgba(25, 29, 36, 0.45);
         }
         @media (max-width: 720px) {
             main { padding: 2em 1.2em; }
@@ -102,6 +97,12 @@
     <canvas id="ulam"></canvas>
     <main>
         <h1>Rustem Turtayev</h1>
+
+        <div class="me">
+            <div class="portrait">
+                <img src="almaty.jpeg" alt="Me in Almaty" width="960" height="1280">
+            </div>
+        </div>
 
         <p>I'm interested in alignment and scalable oversight. I'm currently a Research Scholar at <a href="https://www.matsprogram.org">MATS</a> in London, working with Prof. Shi Feng on model organisms — how realistic they are, and how SFT and RL training regimes differ for creating them — and on applying invariance to alignment problems. Before that I was a Research Engineer at <a href="https://palisaderesearch.org">Palisade Research</a>, measuring what LLM agents can do in offensive security settings, and how they misbehave. I'm also interested in curriculum learning and evolutionary algorithms.</p>
 
@@ -150,12 +151,6 @@
             integers wound into a square spiral, with a dot at every prime.
         </footer>
 
-        <figure class="me">
-            <div class="portrait">
-                <img src="almaty.jpeg" alt="Me in Almaty" width="960" height="1280" loading="lazy">
-            </div>
-            <figcaption>a photo of me in Almaty</figcaption>
-        </figure>
     </main>
 
     <script>
