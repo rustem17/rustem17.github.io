@@ -34,11 +34,6 @@
             padding: 3em 0 3em 6ch;
             text-shadow: 1px 1px 0 #e3e7ef, 2px 2px 0 #e3e7ef, 0 0 3px #e3e7ef;
         }
-        h1 {
-            font-size: 1.5em;
-            font-weight: normal;
-            margin: 0 0 1.6em;
-        }
         h2 {
             font-size: 1em;
             font-weight: normal;
@@ -70,7 +65,14 @@
         }
         footer a { color: rgba(25, 29, 36, 0.6); }
         .me {
-            margin: 0 0 1.6em;
+            margin: 4em 0 0;
+        }
+        .me .caption {
+            width: 200px;
+            margin-top: 0.9em;
+            text-align: center;
+            font-size: 0.9em;
+            color: rgba(25, 29, 36, 0.55);
         }
         .me .portrait {
             width: 200px;
@@ -96,13 +98,7 @@
 <body>
     <canvas id="ulam"></canvas>
     <main>
-        <h1>Rustem Turtayev</h1>
-
-        <div class="me">
-            <div class="portrait">
-                <img src="almaty.jpeg" alt="Me in Almaty" width="960" height="1280">
-            </div>
-        </div>
+        <p>Hello! I'm Rustem, and this is my personal page.</p>
 
         <p>I'm interested in alignment and scalable oversight. I'm currently a Research Scholar at <a href="https://www.matsprogram.org">MATS</a> in London, working with Prof. Shi Feng on model organisms — how realistic they are, and how SFT and RL training regimes differ for creating them — and on applying invariance to alignment problems. Before that I was a Research Engineer at <a href="https://palisaderesearch.org">Palisade Research</a>, measuring what LLM agents can do in offensive security settings, and how they misbehave. I'm also interested in curriculum learning and evolutionary algorithms.</p>
 
@@ -143,8 +139,27 @@
             <a href="https://arxiv.org/abs/2412.02776">[arXiv]</a> <a href="https://github.com/palisaderesearch/intercode">[code]</a>
         </div>
 
+        <h2>Talks</h2>
+        <div class="publication">
+            <div>Talk at Google DeepMind</div>
+            <div class="authors">June 2026</div>
+            <a href="https://docs.google.com/presentation/d/1qTMRi5J3RNZu5grSI4Qcpis-KFT3_OT4wkn2Il33if8/edit?usp=sharing">[slides]</a>
+        </div>
+        <div class="publication">
+            <div>Talk at the Symposium at MATS 9.0</div>
+            <div class="authors">March 2026</div>
+            <a href="https://docs.google.com/presentation/d/19yC-NOMdDw1FunHvScEOtZZTXYNgJ42b2gmoLMwge2k/edit?usp=sharing">[slides]</a>
+        </div>
+
         <h2>Contact</h2>
         <p>u1am (dot) n1t7 (at) gmail (dot) com</p>
+
+        <div class="me">
+            <div class="portrait">
+                <img src="almaty.jpeg" alt="Rustem Turtayev in Almaty" width="960" height="1280">
+            </div>
+            <div class="caption">Rustem Turtayev</div>
+        </div>
 
         <footer>
             Growing in the corner is an <a href="https://en.wikipedia.org/wiki/Ulam_spiral">Ulam spiral</a>:
