@@ -34,9 +34,7 @@
         main {
             display: grid;
             grid-template-columns: minmax(20rem, 55ch) minmax(24rem, 1fr);
-            grid-template-areas:
-                "intro right"
-                "left-tail right";
+            grid-template-areas: "left right";
             column-gap: clamp(4rem, 7vw, 8rem);
             align-items: start;
             width: 100%;
@@ -44,6 +42,10 @@
             margin: 0 auto;
             padding: 3em 6ch;
             text-shadow: 1px 1px 0 #e3e7ef, 2px 2px 0 #e3e7ef, 0 0 3px #e3e7ef;
+        }
+        .left-column {
+            grid-area: left;
+            min-width: 0;
         }
         .intro {
             grid-area: intro;
@@ -95,7 +97,8 @@
         }
         .publication-figure {
             display: block;
-            margin-top: 0.9em;
+            width: min(78%, 26rem);
+            margin: 0.9em auto 0;
             padding: 0.35rem;
             background: rgba(255, 255, 255, 0.65);
             border: 1px solid rgba(0, 0, 0, 0.12);
@@ -149,8 +152,10 @@
                     "left-tail";
                 padding: 2em 1.2em;
             }
+            .left-column { display: contents; }
             .right-column > section:first-child h2 { margin-top: 2.8em; }
             .featured-publication { margin-bottom: 2.5em; }
+            .publication-figure { width: min(100%, 26rem); }
             #ulam {
                 width: 80vmin;
                 height: 80vmin;
@@ -161,19 +166,38 @@
 <body>
     <canvas id="ulam" aria-hidden="true"></canvas>
     <main>
-        <div class="intro">
-            <h1 class="intro-title">Hello! I'm Rustem, and this is my personal page.</h1>
+        <div class="left-column">
+            <div class="intro">
+                <h1 class="intro-title">Hello! I'm Rustem, and this is my personal page.</h1>
 
-            <p>I'm interested in alignment and scalable oversight. I'm currently a Research Scholar at <a href="https://www.matsprogram.org">MATS</a> in London, working with Prof. Shi Feng on model organisms — how realistic they are, and how SFT and RL training regimes differ for creating them — and on applying invariance to alignment problems. Before that I was a Research Engineer at <a href="https://palisaderesearch.org">Palisade Research</a>, measuring what LLM agents can do in offensive security settings, and how they misbehave. I'm also interested in curriculum learning and evolutionary algorithms.</p>
+                <p>I'm interested in alignment and scalable oversight. I'm currently a Research Scholar at <a href="https://www.matsprogram.org">MATS</a> in London, working with Prof. Shi Feng on model organisms — how realistic they are, and how SFT and RL training regimes differ for creating them — and on applying invariance to alignment problems. Before that I was a Research Engineer at <a href="https://palisaderesearch.org">Palisade Research</a>, measuring what LLM agents can do in offensive security settings, and how they misbehave. I'm also interested in curriculum learning and evolutionary algorithms.</p>
 
-            <p>Outside of research I care a lot about music. One day I'd love to build an AI — or just a tool — that helps compose, or simply finds, new great music: pieces that could stand next to the great works of the Romantic and Baroque eras.</p>
+                <p>Outside of research I care a lot about music. One day I'd love to build an AI — or just a tool — that helps compose, or simply finds, new great music: pieces that could stand next to the great works of the Romantic and Baroque eras.</p>
 
-            <div class="links">
-                <a href="https://github.com/rustem17">[GitHub]</a>
-                <a href="https://scholar.google.com/citations?user=gkZBVJIAAAAJ&amp;hl=en">[Google Scholar]</a>
-                <a href="https://linkedin.com/in/rustem-turtayev-7b932b16a">[LinkedIn]</a>
-                <a href="https://www.lesswrong.com/users/rustem">[LessWrong]</a>
-                <a href="/resume.pdf">[Resume]</a>
+                <div class="links">
+                    <a href="https://github.com/rustem17">[GitHub]</a>
+                    <a href="https://scholar.google.com/citations?user=gkZBVJIAAAAJ&amp;hl=en">[Google Scholar]</a>
+                    <a href="https://linkedin.com/in/rustem-turtayev-7b932b16a">[LinkedIn]</a>
+                    <a href="https://www.lesswrong.com/users/rustem">[LessWrong]</a>
+                    <a href="/resume.pdf">[Resume]</a>
+                </div>
+            </div>
+
+            <div class="left-tail">
+                <h2>Contact</h2>
+                <p>u1am (dot) n1t7 (at) gmail (dot) com</p>
+
+                <div class="me">
+                    <div class="portrait">
+                        <img src="almaty.jpeg" alt="Rustem Turtayev in Almaty" width="960" height="1280">
+                    </div>
+                    <div class="caption">Rustem Turtayev</div>
+                </div>
+
+                <footer>
+                    Growing in the corner is an <a href="https://en.wikipedia.org/wiki/Ulam_spiral">Ulam spiral</a>:
+                    integers wound into a square spiral, with a dot at every prime.
+                </footer>
             </div>
         </div>
 
@@ -237,23 +261,6 @@
                     <a href="https://docs.google.com/presentation/d/19yC-NOMdDw1FunHvScEOtZZTXYNgJ42b2gmoLMwge2k/edit?usp=sharing">[slides]</a>
                 </div>
             </section>
-        </div>
-
-        <div class="left-tail">
-            <h2>Contact</h2>
-            <p>u1am (dot) n1t7 (at) gmail (dot) com</p>
-
-            <div class="me">
-                <div class="portrait">
-                    <img src="almaty.jpeg" alt="Rustem Turtayev in Almaty" width="960" height="1280">
-                </div>
-                <div class="caption">Rustem Turtayev</div>
-            </div>
-
-            <footer>
-                Growing in the corner is an <a href="https://en.wikipedia.org/wiki/Ulam_spiral">Ulam spiral</a>:
-                integers wound into a square spiral, with a dot at every prime.
-            </footer>
         </div>
 
     </main>
