@@ -24,8 +24,10 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            width: 55vmin;
-            height: 55vmin;
+            width: min(55vw, 34rem);
+            height: min(55vw, 34rem);
+            width: min(55vw, 70svh, 34rem);
+            height: min(55vw, 70svh, 34rem);
             transform: translate(-50%, -50%);
             z-index: -1;
             filter: blur(3px);
@@ -157,8 +159,10 @@
             .featured-publication { margin-bottom: 2.5em; }
             .publication-figure { width: min(100%, 26rem); }
             #ulam {
-                width: 80vmin;
-                height: 80vmin;
+                width: 80vw;
+                height: 80vw;
+                width: min(80vw, 70svh);
+                height: min(80vw, 70svh);
             }
         }
     </style>
@@ -269,9 +273,17 @@
     <script>
         const canvas = document.getElementById('ulam');
         const ctx = canvas.getContext('2d');
-        const S = 7;
-        const RATE = 60;
+        const S = 5;
+        const RATE = 30;
+        const MAX_FRAME_GAP = 100;
+        const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
         let raf;
+        let last = null, carry = 0;
+        let canvasWidth = 0, canvasHeight = 0, canvasDpr = 0;
+        let cx = 0, cy = 0, maxOff = 0;
+        let x = 0, y = 0, dx = 1, dy = 0;
+        let seg = 1, segLeft = 1, turns = 0, n = 1;
+        let finished = false;
 
         function isPrime(n) {
             if (n < 2) return false;
@@ -280,57 +292,78 @@
             return true;
         }
 
-        function start() {
+        function resetWalker() {
+            x = 0; y = 0; dx = 1; dy = 0;
+            seg = 1; segLeft = 1; turns = 0; n = 1;
+        }
+
+        function step() {
+            if (isPrime(n)) {
+                ctx.beginPath();
+                ctx.arc(cx + x * S, cy + y * S, 2, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            x += dx; y += dy; n++;
+            if (--segLeft === 0) {
+                [dx, dy] = [dy, -dx];
+                if (++turns % 2 === 0) seg++;
+                segLeft = seg;
+            }
+            return Math.max(Math.abs(x), Math.abs(y)) * S <= maxOff;
+        }
+
+        function frame(ts) {
+            if (last === null) last = ts;
+            const elapsed = Math.min(Math.max(ts - last, 0), MAX_FRAME_GAP);
+            carry += elapsed / 1000 * RATE;
+            last = ts;
+            while (carry >= 1 && !finished) {
+                finished = !step();
+                carry--;
+            }
+            if (!finished) raf = requestAnimationFrame(frame);
+        }
+
+        function resume() {
             cancelAnimationFrame(raf);
+            last = null;
+            carry = 0;
+            if (reducedMotion.matches) {
+                while (!finished) finished = !step();
+                return;
+            }
+            if (!finished) raf = requestAnimationFrame(frame);
+        }
+
+        function resizeCanvas() {
             const dpr = devicePixelRatio || 1;
-            const w = canvas.clientWidth, h = canvas.clientHeight;
-            canvas.width = w * dpr;
-            canvas.height = h * dpr;
+            const w = Math.round(canvas.clientWidth);
+            const h = Math.round(canvas.clientHeight);
+            if (!w || !h) return;
+            if (w === canvasWidth && h === canvasHeight && dpr === canvasDpr) return;
+
+            const targetN = n;
+            canvasWidth = w;
+            canvasHeight = h;
+            canvasDpr = dpr;
+            canvas.width = Math.round(w * dpr);
+            canvas.height = Math.round(h * dpr);
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             ctx.clearRect(0, 0, w, h);
             ctx.fillStyle = '#000';
-            const side = Math.min(w, h);
-            const cx = w / 2, cy = h / 2;
-            const maxOff = side / 2 - S;
+            cx = w / 2;
+            cy = h / 2;
+            maxOff = Math.min(w, h) / 2 - S;
 
-            let x = 0, y = 0, dx = 1, dy = 0, seg = 1, segLeft = 1, turns = 0, n = 1;
-
-            function step() {
-                if (isPrime(n)) {
-                    ctx.beginPath();
-                    ctx.arc(cx + x * S, cy + y * S, 2, 0, 2 * Math.PI);
-                    ctx.fill();
-                }
-                x += dx; y += dy; n++;
-                if (--segLeft === 0) {
-                    [dx, dy] = [dy, -dx];
-                    if (++turns % 2 === 0) seg++;
-                    segLeft = seg;
-                }
-                return Math.max(Math.abs(x), Math.abs(y)) * S <= maxOff;
-            }
-
-            if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                while (step());
-                return;
-            }
-            let last = null, carry = 0;
-            function frame(ts) {
-                if (last === null) last = ts;
-                carry += (ts - last) / 1000 * RATE;
-                last = ts;
-                for (; carry >= 1; carry--) if (!step()) return;
-                raf = requestAnimationFrame(frame);
-            }
-            raf = requestAnimationFrame(frame);
+            resetWalker();
+            while (n < targetN) step();
+            finished = Math.max(Math.abs(x), Math.abs(y)) * S > maxOff;
+            resume();
         }
 
-        let resizeTimer;
-        addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(start, 150);
-        });
-        start();
+        addEventListener('resize', resizeCanvas, { passive: true });
+        reducedMotion.addEventListener?.('change', resume);
+        resizeCanvas();
     </script>
 </body>
 </html>
