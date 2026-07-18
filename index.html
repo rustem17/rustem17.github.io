@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rustem Turtayev</title>
-    <meta name="description" content="Rustem Turtayev — Research Engineer at Palisade Research.">
+    <meta name="description" content="Rustem Turtayev — Research Scholar at MATS working on AI alignment, scalable oversight, and model organisms.">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23e3e7ef'/%3E%3Cg fill='%23191d24'%3E%3Ccircle cx='8' cy='8' r='1.4'/%3E%3Ccircle cx='11' cy='8' r='1.4'/%3E%3Ccircle cx='11' cy='5' r='1.4'/%3E%3Ccircle cx='5' cy='5' r='1.4'/%3E%3Ccircle cx='5' cy='11' r='1.4'/%3E%3Ccircle cx='8' cy='11' r='1.4'/%3E%3C/g%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; }
         body {
@@ -28,24 +28,49 @@
             height: 55vh;
             z-index: -1;
             filter: blur(3px);
+            pointer-events: none;
         }
         main {
-            max-width: 55ch;
+            max-width: 72rem;
             padding: 3em 0 3em 6ch;
             text-shadow: 1px 1px 0 #e3e7ef, 2px 2px 0 #e3e7ef, 0 0 3px #e3e7ef;
         }
-        h2 {
+        .intro,
+        .secondary-content,
+        .other-work {
+            max-width: 55ch;
+        }
+        .intro-title {
+            margin: 0 0 1em;
             font-size: 1em;
             font-weight: normal;
-            color: rgba(25, 29, 36, 0.55);
+        }
+        h2 {
+            font-size: 1em;
+            font-weight: 500;
+            color: rgba(25, 29, 36, 0.68);
             margin: 2.8em 0 0.8em;
+        }
+        h3 {
+            margin: 2.5em 0 1em;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: rgba(25, 29, 36, 0.55);
         }
         p { margin: 0 0 1em; }
         a {
             color: rgba(0, 0, 0, 0.8);
             text-decoration: none;
+            text-underline-offset: 0.18em;
         }
-        a:hover { color: rgba(0, 0, 0, 0.6); }
+        a:hover {
+            color: rgba(0, 0, 0, 0.6);
+            text-decoration: underline;
+        }
+        a:focus-visible {
+            outline: 2px solid rgba(25, 29, 36, 0.65);
+            outline-offset: 3px;
+        }
         .links {
             display: flex;
             flex-wrap: wrap;
@@ -53,8 +78,38 @@
             margin: 1.8em 0 0;
         }
         .links a { white-space: nowrap; }
+        .featured-publications {
+            max-width: 64rem;
+        }
+        .featured-publication {
+            display: grid;
+            grid-template-columns: minmax(0, 55ch) minmax(18rem, 24rem);
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3em;
+        }
+        .publication-title {
+            font-weight: 500;
+        }
+        .publication-figure {
+            display: block;
+            padding: 0.35rem;
+            background: rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(25, 29, 36, 0.12);
+            text-shadow: none;
+        }
+        .publication-figure:hover {
+            border-color: rgba(25, 29, 36, 0.3);
+            text-decoration: none;
+        }
+        .publication-figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
         .publication { margin-bottom: 1.3em; }
-        .publication .authors {
+        .publication .authors,
+        .featured-publication .authors {
             font-size: 0.85em;
             color: rgba(25, 29, 36, 0.55);
         }
@@ -86,8 +141,13 @@
             height: auto;
             margin: -126.8% 0 0 -56.6%;
         }
-        @media (max-width: 720px) {
+        @media (max-width: 800px) {
             main { padding: 2em 1.2em; }
+            .featured-publication {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 1em;
+                margin-bottom: 2.5em;
+            }
             #ulam {
                 width: 100vw;
                 height: 45vh;
@@ -96,75 +156,98 @@
     </style>
 </head>
 <body>
-    <canvas id="ulam"></canvas>
+    <canvas id="ulam" aria-hidden="true"></canvas>
     <main>
-        <p>Hello! I'm Rustem, and this is my personal page.</p>
+        <div class="intro">
+            <h1 class="intro-title">Hello! I'm Rustem, and this is my personal page.</h1>
 
-        <p>I'm interested in alignment and scalable oversight. I'm currently a Research Scholar at <a href="https://www.matsprogram.org">MATS</a> in London, working with Prof. Shi Feng on model organisms — how realistic they are, and how SFT and RL training regimes differ for creating them — and on applying invariance to alignment problems. Before that I was a Research Engineer at <a href="https://palisaderesearch.org">Palisade Research</a>, measuring what LLM agents can do in offensive security settings, and how they misbehave. I'm also interested in curriculum learning and evolutionary algorithms.</p>
+            <p>I'm interested in alignment and scalable oversight. I'm currently a Research Scholar at <a href="https://www.matsprogram.org">MATS</a> in London, working with Prof. Shi Feng on model organisms — how realistic they are, and how SFT and RL training regimes differ for creating them — and on applying invariance to alignment problems. Before that I was a Research Engineer at <a href="https://palisaderesearch.org">Palisade Research</a>, measuring what LLM agents can do in offensive security settings, and how they misbehave. I'm also interested in curriculum learning and evolutionary algorithms.</p>
 
-        <p>Outside of research I care a lot about music. One day I'd love to build an AI — or just a tool — that helps compose, or simply finds, new great music: pieces that could stand next to the great works of the Romantic and Baroque eras.</p>
+            <p>Outside of research I care a lot about music. One day I'd love to build an AI — or just a tool — that helps compose, or simply finds, new great music: pieces that could stand next to the great works of the Romantic and Baroque eras.</p>
 
-        <div class="links">
-            <a href="https://github.com/rustem17">[GitHub]</a>
-            <a href="https://scholar.google.com/citations?user=gkZBVJIAAAAJ&hl=en">[Google Scholar]</a>
-            <a href="https://linkedin.com/in/rustem-turtayev-7b932b16a">[LinkedIn]</a>
-            <a href="https://www.lesswrong.com/users/rustem">[LessWrong]</a>
-            <a href="/resume.pdf">[Resume]</a>
-        </div>
-
-        <h2>Publications and Preprints</h2>
-        <div class="publication">
-            <div>Building Comparative Motivation Profiles with Instrumental Interventions</div>
-            <div class="authors">David Vella Zarb, Rustem Turtayev, Taywon Min, Jinghua Ou, Shi Feng · 2026</div>
-            <a href="https://arxiv.org/abs/2606.08243">[arXiv]</a>
-        </div>
-        <div class="publication">
-            <div>Misalignment Bounty: Crowdsourcing AI Agent Misbehavior</div>
-            <div class="authors">Rustem Turtayev, Natalia Fedorova, Oleg Serikov, Sergey Koldyba, Lev Avagyan, Dmitrii Volkov · 2025</div>
-            <a href="https://arxiv.org/abs/2510.19738">[arXiv]</a> <a href="https://palisaderesearch.org/blog/misalignment-bounty">[blog]</a> <a href="https://huggingface.co/datasets/palisaderesearch/Misalignment-Bounty-Submissions">[dataset]</a>
-        </div>
-        <div class="publication">
-            <div>CayleyPy Growth: Efficient Growth Computations and Hundreds of New Conjectures on Cayley Graphs</div>
-            <div class="authors">A. Chervov et al. (CayleyPy collaboration) · 2025 · contributed talk at NeurIPS MATH-AI Workshop</div>
-            <a href="https://arxiv.org/abs/2509.19162">[arXiv]</a>
-        </div>
-        <div class="publication">
-            <div>CayleyPy RL: Pathfinding and Reinforcement Learning on Cayley Graphs</div>
-            <div class="authors">A. Chervov et al. (CayleyPy collaboration) · 2025 · Advances in Theoretical and Mathematical Physics 30(1), 2026</div>
-            <a href="https://arxiv.org/abs/2502.18663">[arXiv]</a>
-        </div>
-        <div class="publication">
-            <div>Hacking CTFs with Plain Agents</div>
-            <div class="authors">Rustem Turtayev, Artem Petrov, Dmitrii Volkov, Denis Volk · 2024</div>
-            <a href="https://arxiv.org/abs/2412.02776">[arXiv]</a> <a href="https://github.com/palisaderesearch/intercode">[code]</a>
-        </div>
-
-        <h2>Talks</h2>
-        <div class="publication">
-            <div>Talk at Google DeepMind</div>
-            <div class="authors">June 2026</div>
-            <a href="https://docs.google.com/presentation/d/1qTMRi5J3RNZu5grSI4Qcpis-KFT3_OT4wkn2Il33if8/edit?usp=sharing">[slides]</a>
-        </div>
-        <div class="publication">
-            <div>Talk at the Symposium at MATS 9.0</div>
-            <div class="authors">March 2026</div>
-            <a href="https://docs.google.com/presentation/d/19yC-NOMdDw1FunHvScEOtZZTXYNgJ42b2gmoLMwge2k/edit?usp=sharing">[slides]</a>
-        </div>
-
-        <h2>Contact</h2>
-        <p>u1am (dot) n1t7 (at) gmail (dot) com</p>
-
-        <div class="me">
-            <div class="portrait">
-                <img src="almaty.jpeg" alt="Rustem Turtayev in Almaty" width="960" height="1280">
+            <div class="links">
+                <a href="https://github.com/rustem17">[GitHub]</a>
+                <a href="https://scholar.google.com/citations?user=gkZBVJIAAAAJ&amp;hl=en">[Google Scholar]</a>
+                <a href="https://linkedin.com/in/rustem-turtayev-7b932b16a">[LinkedIn]</a>
+                <a href="https://www.lesswrong.com/users/rustem">[LessWrong]</a>
+                <a href="/resume.pdf">[Resume]</a>
             </div>
-            <div class="caption">Rustem Turtayev</div>
         </div>
 
-        <footer>
-            Growing in the corner is an <a href="https://en.wikipedia.org/wiki/Ulam_spiral">Ulam spiral</a>:
-            integers wound into a square spiral, with a dot at every prime.
-        </footer>
+        <section aria-labelledby="selected-research">
+            <h2 id="selected-research">Selected Research</h2>
+            <div class="featured-publications">
+                <article class="featured-publication">
+                    <div>
+                        <div class="publication-title"><a href="https://arxiv.org/abs/2606.08243">Building Comparative Motivation Profiles with Instrumental Interventions</a></div>
+                        <div class="authors">David Vella Zarb, Rustem Turtayev, Taywon Min, Jinghua Ou, Shi Feng · 2026</div>
+                        <a href="https://arxiv.org/abs/2606.08243">[arXiv]</a>
+                    </div>
+                    <a class="publication-figure" href="https://arxiv.org/abs/2606.08243" aria-label="Read Building Comparative Motivation Profiles with Instrumental Interventions">
+                        <img src="assets/papers/motivation-profiles-figure.webp" alt="Diagram comparing symmetric interventions for performative and scheming motivations" width="1140" height="520" loading="lazy" decoding="async">
+                    </a>
+                </article>
+
+                <article class="featured-publication">
+                    <div>
+                        <div class="publication-title"><a href="https://arxiv.org/abs/2412.02776">Hacking CTFs with Plain Agents</a></div>
+                        <div class="authors">Rustem Turtayev, Artem Petrov, Dmitrii Volkov, Denis Volk · 2024</div>
+                        <a href="https://arxiv.org/abs/2412.02776">[arXiv]</a> <a href="https://github.com/palisaderesearch/intercode">[code]</a>
+                    </div>
+                    <a class="publication-figure" href="https://arxiv.org/abs/2412.02776" aria-label="Read Hacking CTFs with Plain Agents">
+                        <img src="assets/papers/hacking-ctfs-figure.webp" alt="Chart showing InterCode-CTF tasks solved rising from 40 to 81 over four weeks" width="1190" height="310" loading="lazy" decoding="async">
+                    </a>
+                </article>
+            </div>
+        </section>
+
+        <section class="other-work" aria-labelledby="other-work">
+            <h3 id="other-work">Other work</h3>
+            <div class="publication">
+                <div>Misalignment Bounty: Crowdsourcing AI Agent Misbehavior</div>
+                <div class="authors">Rustem Turtayev et al. · 2025</div>
+                <a href="https://arxiv.org/abs/2510.19738">[arXiv]</a> <a href="https://palisaderesearch.org/blog/misalignment-bounty">[blog]</a> <a href="https://huggingface.co/datasets/palisaderesearch/Misalignment-Bounty-Submissions">[dataset]</a>
+            </div>
+            <div class="publication">
+                <div>CayleyPy Growth: Efficient Growth Computations and Hundreds of New Conjectures on Cayley Graphs</div>
+                <div class="authors">A. Chervov et al. · 2025</div>
+                <a href="https://arxiv.org/abs/2509.19162">[arXiv]</a>
+            </div>
+            <div class="publication">
+                <div>CayleyPy RL: Pathfinding and Reinforcement Learning on Cayley Graphs</div>
+                <div class="authors">A. Chervov et al. · 2025</div>
+                <a href="https://arxiv.org/abs/2502.18663">[arXiv]</a>
+            </div>
+        </section>
+
+        <div class="secondary-content">
+            <h2>Talks</h2>
+            <div class="publication">
+                <div>Building comparative motivational profiles at Google DeepMind</div>
+                <div class="authors">June 2026</div>
+                <a href="https://docs.google.com/presentation/d/1qTMRi5J3RNZu5grSI4Qcpis-KFT3_OT4wkn2Il33if8/edit?usp=sharing">[slides]</a>
+            </div>
+            <div class="publication">
+                <div>Sycophancy towards researchers drives performative misalignment at the MATS 9.0 Symposium</div>
+                <div class="authors">March 2026</div>
+                <a href="https://docs.google.com/presentation/d/19yC-NOMdDw1FunHvScEOtZZTXYNgJ42b2gmoLMwge2k/edit?usp=sharing">[slides]</a>
+            </div>
+
+            <h2>Contact</h2>
+            <p>u1am (dot) n1t7 (at) gmail (dot) com</p>
+
+            <div class="me">
+                <div class="portrait">
+                    <img src="almaty.jpeg" alt="Rustem Turtayev in Almaty" width="960" height="1280">
+                </div>
+                <div class="caption">Rustem Turtayev</div>
+            </div>
+
+            <footer>
+                Growing in the corner is an <a href="https://en.wikipedia.org/wiki/Ulam_spiral">Ulam spiral</a>:
+                integers wound into a square spiral, with a dot at every prime.
+            </footer>
+        </div>
 
     </main>
 
