@@ -8,36 +8,50 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23e3e7ef'/%3E%3Cg fill='%23191d24'%3E%3Ccircle cx='8' cy='8' r='1.4'/%3E%3Ccircle cx='11' cy='8' r='1.4'/%3E%3Ccircle cx='11' cy='5' r='1.4'/%3E%3Ccircle cx='5' cy='5' r='1.4'/%3E%3Ccircle cx='5' cy='11' r='1.4'/%3E%3Ccircle cx='8' cy='11' r='1.4'/%3E%3C/g%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; }
         body {
             margin: 0;
             min-height: 100vh;
             background: #e3e7ef;
-            color: #191d24;
-            font-family: "Roboto Mono", ui-monospace, "SF Mono", Menlo, monospace;
+            color: #000;
+            font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
             font-size: 16px;
             line-height: 1.55;
         }
         #ulam {
             position: fixed;
-            right: 0;
-            bottom: 0;
-            width: 55vw;
-            height: 55vh;
+            top: 50%;
+            left: 50%;
+            width: 55vmin;
+            height: 55vmin;
+            transform: translate(-50%, -50%);
             z-index: -1;
             filter: blur(3px);
             pointer-events: none;
         }
         main {
-            max-width: 72rem;
-            padding: 3em 0 3em 6ch;
+            display: grid;
+            grid-template-columns: minmax(20rem, 55ch) minmax(24rem, 1fr);
+            grid-template-areas:
+                "intro right"
+                "left-tail right";
+            column-gap: clamp(4rem, 7vw, 8rem);
+            align-items: start;
+            width: 100%;
+            max-width: 96rem;
+            margin: 0 auto;
+            padding: 3em 6ch;
             text-shadow: 1px 1px 0 #e3e7ef, 2px 2px 0 #e3e7ef, 0 0 3px #e3e7ef;
         }
-        .intro,
-        .secondary-content,
-        .other-work {
+        .intro {
+            grid-area: intro;
+            max-width: 55ch;
+        }
+        .right-column { grid-area: right; }
+        .left-tail {
+            grid-area: left-tail;
             max-width: 55ch;
         }
         .intro-title {
@@ -48,18 +62,13 @@
         h2 {
             font-size: 1em;
             font-weight: 500;
-            color: rgba(25, 29, 36, 0.68);
+            color: rgba(0, 0, 0, 0.68);
             margin: 2.8em 0 0.8em;
         }
-        h3 {
-            margin: 2.5em 0 1em;
-            font-size: 0.9em;
-            font-weight: 500;
-            color: rgba(25, 29, 36, 0.55);
-        }
+        .right-column > section:first-child h2 { margin-top: 0; }
         p { margin: 0 0 1em; }
         a {
-            color: rgba(0, 0, 0, 0.8);
+            color: #000;
             text-decoration: none;
             text-underline-offset: 0.18em;
         }
@@ -68,7 +77,7 @@
             text-decoration: underline;
         }
         a:focus-visible {
-            outline: 2px solid rgba(25, 29, 36, 0.65);
+            outline: 2px solid rgba(0, 0, 0, 0.65);
             outline-offset: 3px;
         }
         .links {
@@ -78,29 +87,19 @@
             margin: 1.8em 0 0;
         }
         .links a { white-space: nowrap; }
-        .featured-publications {
-            max-width: 64rem;
-        }
         .featured-publication {
-            display: grid;
-            grid-template-columns: minmax(0, 55ch) minmax(18rem, 24rem);
-            gap: 3rem;
-            align-items: center;
             margin-bottom: 3em;
         }
         .publication-title {
-            font-weight: 500;
+            font-weight: normal;
         }
         .publication-figure {
             display: block;
+            margin-top: 0.9em;
             padding: 0.35rem;
             background: rgba(255, 255, 255, 0.65);
-            border: 1px solid rgba(25, 29, 36, 0.12);
+            border: 1px solid rgba(0, 0, 0, 0.12);
             text-shadow: none;
-        }
-        .publication-figure:hover {
-            border-color: rgba(25, 29, 36, 0.3);
-            text-decoration: none;
         }
         .publication-figure img {
             display: block;
@@ -111,14 +110,14 @@
         .publication .authors,
         .featured-publication .authors {
             font-size: 0.85em;
-            color: rgba(25, 29, 36, 0.55);
+            color: rgba(0, 0, 0, 0.55);
         }
         footer {
             margin-top: 4em;
             font-size: 0.8em;
-            color: rgba(25, 29, 36, 0.45);
+            color: rgba(0, 0, 0, 0.45);
         }
-        footer a { color: rgba(25, 29, 36, 0.6); }
+        footer a { color: rgba(0, 0, 0, 0.6); }
         .me {
             margin: 4em 0 0;
         }
@@ -127,7 +126,7 @@
             margin-top: 0.9em;
             text-align: center;
             font-size: 0.9em;
-            color: rgba(25, 29, 36, 0.55);
+            color: rgba(0, 0, 0, 0.55);
         }
         .me .portrait {
             width: 200px;
@@ -141,16 +140,20 @@
             height: auto;
             margin: -126.8% 0 0 -56.6%;
         }
-        @media (max-width: 800px) {
-            main { padding: 2em 1.2em; }
-            .featured-publication {
+        @media (max-width: 900px) {
+            main {
                 grid-template-columns: minmax(0, 1fr);
-                gap: 1em;
-                margin-bottom: 2.5em;
+                grid-template-areas:
+                    "intro"
+                    "right"
+                    "left-tail";
+                padding: 2em 1.2em;
             }
+            .right-column > section:first-child h2 { margin-top: 2.8em; }
+            .featured-publication { margin-bottom: 2.5em; }
             #ulam {
-                width: 100vw;
-                height: 45vh;
+                width: 80vmin;
+                height: 80vmin;
             }
         }
     </style>
@@ -174,65 +177,69 @@
             </div>
         </div>
 
-        <section aria-labelledby="selected-research">
-            <h2 id="selected-research">Selected Research</h2>
-            <div class="featured-publications">
-                <article class="featured-publication">
-                    <div>
-                        <div class="publication-title"><a href="https://arxiv.org/abs/2606.08243">Building Comparative Motivation Profiles with Instrumental Interventions</a></div>
-                        <div class="authors">David Vella Zarb, Rustem Turtayev, Taywon Min, Jinghua Ou, Shi Feng · 2026</div>
-                        <a href="https://arxiv.org/abs/2606.08243">[arXiv]</a>
-                    </div>
-                    <a class="publication-figure" href="https://arxiv.org/abs/2606.08243" aria-label="Read Building Comparative Motivation Profiles with Instrumental Interventions">
-                        <img src="assets/papers/motivation-profiles-figure.webp" alt="Diagram comparing symmetric interventions for performative and scheming motivations" width="1140" height="520" loading="lazy" decoding="async">
-                    </a>
-                </article>
+        <div class="right-column">
+            <section aria-labelledby="selected-research">
+                <h2 id="selected-research">Selected Research</h2>
+                <div class="featured-publications">
+                    <article class="featured-publication">
+                        <div>
+                            <div class="publication-title">Building Comparative Motivation Profiles with Instrumental Interventions</div>
+                            <div class="authors">David Vella Zarb, Rustem Turtayev, Taywon Min, Jinghua Ou, Shi Feng · 2026</div>
+                            <a href="https://arxiv.org/abs/2606.08243">[arXiv]</a>
+                        </div>
+                        <div class="publication-figure">
+                            <img src="assets/papers/motivation-profiles-figure.webp" alt="Diagram comparing symmetric interventions for performative and scheming motivations" width="1140" height="520" loading="lazy" decoding="async">
+                        </div>
+                    </article>
 
-                <article class="featured-publication">
-                    <div>
-                        <div class="publication-title"><a href="https://arxiv.org/abs/2412.02776">Hacking CTFs with Plain Agents</a></div>
-                        <div class="authors">Rustem Turtayev, Artem Petrov, Dmitrii Volkov, Denis Volk · 2024</div>
-                        <a href="https://arxiv.org/abs/2412.02776">[arXiv]</a> <a href="https://github.com/palisaderesearch/intercode">[code]</a>
-                    </div>
-                    <a class="publication-figure" href="https://arxiv.org/abs/2412.02776" aria-label="Read Hacking CTFs with Plain Agents">
-                        <img src="assets/papers/hacking-ctfs-figure.webp" alt="Chart showing InterCode-CTF tasks solved rising from 40 to 81 over four weeks" width="1190" height="310" loading="lazy" decoding="async">
-                    </a>
-                </article>
-            </div>
-        </section>
+                    <article class="featured-publication">
+                        <div>
+                            <div class="publication-title">Hacking CTFs with Plain Agents</div>
+                            <div class="authors">Rustem Turtayev, Artem Petrov, Dmitrii Volkov, Denis Volk · 2024</div>
+                            <a href="https://arxiv.org/abs/2412.02776">[arXiv]</a> <a href="https://github.com/palisaderesearch/intercode">[code]</a>
+                        </div>
+                        <div class="publication-figure">
+                            <img src="assets/papers/hacking-ctfs-figure.webp" alt="Chart showing InterCode-CTF tasks solved rising from 40 to 81 over four weeks" width="1190" height="310" loading="lazy" decoding="async">
+                        </div>
+                    </article>
+                </div>
+            </section>
 
-        <section class="other-work" aria-labelledby="other-work">
-            <h3 id="other-work">Other work</h3>
-            <div class="publication">
-                <div>Misalignment Bounty: Crowdsourcing AI Agent Misbehavior</div>
-                <div class="authors">Rustem Turtayev et al. · 2025</div>
-                <a href="https://arxiv.org/abs/2510.19738">[arXiv]</a> <a href="https://palisaderesearch.org/blog/misalignment-bounty">[blog]</a> <a href="https://huggingface.co/datasets/palisaderesearch/Misalignment-Bounty-Submissions">[dataset]</a>
-            </div>
-            <div class="publication">
-                <div>CayleyPy Growth: Efficient Growth Computations and Hundreds of New Conjectures on Cayley Graphs</div>
-                <div class="authors">A. Chervov et al. · 2025</div>
-                <a href="https://arxiv.org/abs/2509.19162">[arXiv]</a>
-            </div>
-            <div class="publication">
-                <div>CayleyPy RL: Pathfinding and Reinforcement Learning on Cayley Graphs</div>
-                <div class="authors">A. Chervov et al. · 2025</div>
-                <a href="https://arxiv.org/abs/2502.18663">[arXiv]</a>
-            </div>
-        </section>
+            <section aria-labelledby="other-work">
+                <h2 id="other-work">Other work</h2>
+                <div class="publication">
+                    <div class="publication-title">Misalignment Bounty: Crowdsourcing AI Agent Misbehavior</div>
+                    <div class="authors">Rustem Turtayev et al. · 2025</div>
+                    <a href="https://arxiv.org/abs/2510.19738">[arXiv]</a> <a href="https://palisaderesearch.org/blog/misalignment-bounty">[blog]</a> <a href="https://huggingface.co/datasets/palisaderesearch/Misalignment-Bounty-Submissions">[dataset]</a>
+                </div>
+                <div class="publication">
+                    <div class="publication-title">CayleyPy Growth: Efficient Growth Computations and Hundreds of New Conjectures on Cayley Graphs</div>
+                    <div class="authors">A. Chervov et al. · 2025</div>
+                    <a href="https://arxiv.org/abs/2509.19162">[arXiv]</a>
+                </div>
+                <div class="publication">
+                    <div class="publication-title">CayleyPy RL: Pathfinding and Reinforcement Learning on Cayley Graphs</div>
+                    <div class="authors">A. Chervov et al. · 2025</div>
+                    <a href="https://arxiv.org/abs/2502.18663">[arXiv]</a>
+                </div>
+            </section>
 
-        <div class="secondary-content">
-            <h2>Talks</h2>
-            <div class="publication">
-                <div>Building comparative motivational profiles at Google DeepMind</div>
-                <div class="authors">June 2026</div>
-                <a href="https://docs.google.com/presentation/d/1qTMRi5J3RNZu5grSI4Qcpis-KFT3_OT4wkn2Il33if8/edit?usp=sharing">[slides]</a>
-            </div>
-            <div class="publication">
-                <div>Sycophancy towards researchers drives performative misalignment at the MATS 9.0 Symposium</div>
-                <div class="authors">March 2026</div>
-                <a href="https://docs.google.com/presentation/d/19yC-NOMdDw1FunHvScEOtZZTXYNgJ42b2gmoLMwge2k/edit?usp=sharing">[slides]</a>
-            </div>
+            <section aria-labelledby="talks">
+                <h2 id="talks">Talks</h2>
+                <div class="publication">
+                    <div>Building comparative motivational profiles at Google DeepMind</div>
+                    <div class="authors">June 2026</div>
+                    <a href="https://docs.google.com/presentation/d/1qTMRi5J3RNZu5grSI4Qcpis-KFT3_OT4wkn2Il33if8/edit?usp=sharing">[slides]</a>
+                </div>
+                <div class="publication">
+                    <div>Sycophancy towards researchers drives performative misalignment at the MATS 9.0 Symposium</div>
+                    <div class="authors">March 2026</div>
+                    <a href="https://docs.google.com/presentation/d/19yC-NOMdDw1FunHvScEOtZZTXYNgJ42b2gmoLMwge2k/edit?usp=sharing">[slides]</a>
+                </div>
+            </section>
+        </div>
 
+        <div class="left-tail">
             <h2>Contact</h2>
             <p>u1am (dot) n1t7 (at) gmail (dot) com</p>
 
@@ -273,9 +280,9 @@
             canvas.height = h * dpr;
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             ctx.clearRect(0, 0, w, h);
-            ctx.fillStyle = '#2a2f38';
+            ctx.fillStyle = '#000';
             const side = Math.min(w, h);
-            const cx = w - side / 2, cy = h - side / 2;
+            const cx = w / 2, cy = h / 2;
             const maxOff = side / 2 - S;
 
             let x = 0, y = 0, dx = 1, dy = 0, seg = 1, segLeft = 1, turns = 0, n = 1;
