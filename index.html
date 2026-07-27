@@ -134,16 +134,32 @@
             color: rgba(0, 0, 0, 0.55);
         }
         .me .portrait {
+            position: relative;
             width: 200px;
             aspect-ratio: 1;
             border-radius: 50%;
             overflow: hidden;
         }
-        .me img {
+        .me .portrait-photo {
             display: block;
             width: 252.6%;
             height: auto;
             margin: -126.8% 0 0 -56.6%;
+        }
+        .me .portrait-sketch {
+            position: absolute;
+            inset: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+        }
+        @media (hover: hover) and (pointer: fine) {
+            .me .portrait:hover .portrait-sketch { opacity: 1; }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            .me .portrait-sketch { transition: opacity 160ms ease; }
         }
         @media (min-width: 901px) {
             .left-column {
@@ -200,7 +216,8 @@
 
                 <div class="me">
                     <div class="portrait">
-                        <img src="almaty.jpeg" alt="Rustem Turtayev in Almaty" width="960" height="1280">
+                        <img class="portrait-photo" src="almaty.jpeg" alt="Rustem Turtayev in Almaty" width="960" height="1280">
+                        <img class="portrait-sketch" src="assets/rough-sketch.webp" alt="" width="400" height="400" decoding="async" aria-hidden="true">
                     </div>
                     <div class="caption">Rustem Turtayev</div>
                 </div>
