@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One specific thing · Rustem Turtayev</title>
+    <meta name="description" content="One thing, changing from time to time. Currently: a growing Ulam spiral.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23ffffff'/%3E%3Cg fill='%23000000'%3E%3Ccircle cx='8' cy='8' r='1.4'/%3E%3Ccircle cx='11' cy='8' r='1.4'/%3E%3Ccircle cx='11' cy='5' r='1.4'/%3E%3Ccircle cx='5' cy='5' r='1.4'/%3E%3Ccircle cx='5' cy='11' r='1.4'/%3E%3Ccircle cx='8' cy='11' r='1.4'/%3E%3C/g%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; background: #fff; color: #111; font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace; font-size: 14px; line-height: 1.6; }
+        main { max-width: 1056px; margin: 0 auto; padding: 32px 24px 48px; }
+        header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
+        h1 { margin: 0; font-size: 1em; font-weight: 400; }
+        a { color: inherit; text-underline-offset: 3px; text-decoration-color: #aaa; }
+        a:hover { text-decoration-color: currentColor; }
+        a:focus-visible, button:focus-visible { outline: 2px solid #111; outline-offset: 4px; }
+        figure { margin: 32px 0 0; }
+        canvas { display: block; width: min(100%, 80svh, 960px); aspect-ratio: 1; margin: 0 auto; }
+        figcaption { max-width: 662px; margin: 32px auto 0; }
+        p { margin: 0 0 12px; }
+        .note { font-size: 12px; color: #666; }
+        button { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+        @media (max-width: 480px) { main { padding: 24px 20px 32px; } }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>one specific thing</h1>
+            <a href="./">back to my page</a>
+        </header>
+        <figure>
+            <canvas id="ulam" role="img" aria-label="A growing Ulam spiral, with blue dots marking prime numbers."></canvas>
+            <figcaption>
+                <p>An <a href="https://en.wikipedia.org/wiki/Ulam_spiral">Ulam spiral</a>.
+                Integers arranged in a square spiral, with a dot at every prime.</p>
+                <p><button id="pause" type="button" hidden>pause</button></p>
+                <p class="note">it's just a random thing that i wanted show; next time (uncertain when) will be a different thing; maybe a ping pong game with AI?</p>
+            </figcaption>
+        </figure>
+    </main>
+    <script>
+        const canvas = document.getElementById('ulam');
+        const ctx = canvas.getContext('2d');
+        const S = 5;
+        const RATE = 240;
+        const MAX_FRAME_GAP = 100;
+        const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+        let paused = false;
+        let raf;
+        let last = null, carry = 0;
+        let canvasWidth = 0, canvasHeight = 0, canvasDpr = 0;
+        let cx = 0, cy = 0, maxOff = 0;
+        let x = 0, y = 0, dx = 1, dy = 0;
+        let seg = 1, segLeft = 1, turns = 0, n = 1;
+        let finished = false;
+
+        function isPrime(n) {
+            if (n < 2) return false;
+            if (n % 2 === 0) return n === 2;
+            for (let i = 3; i * i <= n; i += 2) if (n % i === 0) return false;
+            return true;
+        }
+
+        function resetWalker() {
+            x = 0; y = 0; dx = 1; dy = 0;
+            seg = 1; segLeft = 1; turns = 0; n = 1;
+        }
+
+        function step() {
+            if (isPrime(n)) {
+                ctx.beginPath();
+                ctx.arc(cx + x * S, cy + y * S, 2, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            x += dx; y += dy; n++;
+            if (--segLeft === 0) {
+                [dx, dy] = [dy, -dx];
+                if (++turns % 2 === 0) seg++;
+                segLeft = seg;
+            }
+            return Math.max(Math.abs(x), Math.abs(y)) * S <= maxOff;
+        }
+
+        function frame(ts) {
+            if (last === null) last = ts;
+            const elapsed = Math.min(Math.max(ts - last, 0), MAX_FRAME_GAP);
+            carry += elapsed / 1000 * RATE;
+            last = ts;
+            while (carry >= 1 && !finished) {
+                finished = !step();
+                carry--;
+            }
+            if (!finished) raf = requestAnimationFrame(frame);
+        }
+
+        function resume() {
+            cancelAnimationFrame(raf);
+            last = null;
+            carry = 0;
+            if (paused) return;
+            if (reducedMotion.matches) {
+                while (!finished) finished = !step();
+                return;
+            }
+            if (!finished) raf = requestAnimationFrame(frame);
+        }
+
+        function resizeCanvas() {
+            const dpr = devicePixelRatio || 1;
+            const w = Math.round(canvas.clientWidth);
+            const h = Math.round(canvas.clientHeight);
+            if (!w || !h) return;
+            if (w === canvasWidth && h === canvasHeight && dpr === canvasDpr) return;
+
+            const targetN = n;
+            canvasWidth = w;
+            canvasHeight = h;
+            canvasDpr = dpr;
+            canvas.width = Math.round(w * dpr);
+            canvas.height = Math.round(h * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = '#7777ff';
+            cx = w / 2;
+            cy = h / 2;
+            maxOff = Math.min(w, h) / 2 - S;
+
+            resetWalker();
+            while (n < targetN) step();
+            finished = Math.max(Math.abs(x), Math.abs(y)) * S > maxOff;
+            resume();
+        }
+
+        const pauseButton = document.getElementById('pause');
+        pauseButton.hidden = reducedMotion.matches;
+        pauseButton.addEventListener('click', () => {
+            paused = !paused;
+            pauseButton.textContent = paused ? 'resume' : 'pause';
+            resume();
+        });
+        reducedMotion.addEventListener('change', () => {
+            pauseButton.hidden = reducedMotion.matches;
+        });
+        addEventListener('resize', resizeCanvas, { passive: true });
+        reducedMotion.addEventListener?.('change', resume);
+        resizeCanvas();
+    </script>
+</body>
+</html>

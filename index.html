@@ -20,17 +20,6 @@
             font-size: 14px;
             line-height: 1.6;
         }
-        #ulam {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: min(80vw, 70svh, 34rem);
-            height: min(80vw, 70svh, 34rem);
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            opacity: 0.16;
-            pointer-events: none;
-        }
         main {
             width: 100%;
             max-width: 710px;
@@ -44,7 +33,8 @@
             margin-bottom: 22px;
         }
         .intro-title { margin: 0; font-size: 1em; font-weight: 400; }
-        h2 { font-size: 1em; font-weight: 500; margin: 30px 0 14px; }
+        h2 { font-size: 1em; font-weight: 500; margin: 0 0 22px; }
+        .right-column > section { margin-top: 48px; }
         p { margin: 0 0 13px; }
         .bio-toggle { padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; text-decoration: underline; text-decoration-color: #aaa; text-underline-offset: 3px; }
         .bio-toggle[aria-expanded="false"]::after { content: " ..."; letter-spacing: 0.15em; }
@@ -55,22 +45,23 @@
         a:focus-visible, .portrait:focus-visible { outline: 2px solid #111; outline-offset: 4px; }
         .links { display: flex; flex-wrap: wrap; gap: 5px 18px; margin: 32px 0 0; }
         .links a { white-space: nowrap; }
-        .contact { margin: 10px 0 28px; color: #555; }
-        .featured-publication { margin-bottom: 22px; }
+        .contact { margin: 10px 0 36px; color: #555; }
+        .featured-publication { margin-bottom: 32px; }
+        .featured-publication:last-child, .publication:last-child { margin-bottom: 0; }
         .publication-title { font-weight: 500; }
         .publication .publication-title { font-weight: 400; }
         .publication-figure { display: block; width: 100%; margin: 12px auto 0; }
         .publication-figure img { display: block; width: 100%; height: auto; }
-        .publication { margin-bottom: 16px; }
+        .publication { margin-bottom: 26px; }
         .authors { font-size: 12px; color: #666; margin: 3px 0; }
         .venue { font-size: 12px; font-weight: 400; margin: 4px 0; }
         article a, .publication > a { font-size: 12px; }
-        footer { margin-top: 30px; padding-top: 14px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+        footer { margin-top: 48px; padding-top: 14px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
         .portrait {
             position: relative;
-            flex: 0 0 100px;
-            width: 100px;
-            height: 100px;
+            flex: 0 0 112px;
+            width: 112px;
+            height: 112px;
             padding: 0;
             border: 0;
             border-radius: 50%;
@@ -90,12 +81,11 @@
         @media (max-width: 480px) {
             main { padding: 28px 20px; }
             .intro-header { gap: 16px; }
-            .portrait { flex-basis: 84px; width: 84px; height: 84px; }
+            .portrait { flex-basis: 94px; width: 94px; height: 94px; }
         }
     </style>
 </head>
 <body>
-    <canvas id="ulam" aria-hidden="true"></canvas>
     <main>
         <div class="left-column">
             <div class="intro">
@@ -211,8 +201,7 @@
         </div>
 
         <footer>
-            In the background: an <a href="https://en.wikipedia.org/wiki/Ulam_spiral">Ulam spiral</a>.
-            Integers arranged in a square spiral, with a dot at every prime.
+            <a href="one-thing.html">another page with one specific thing</a>
         </footer>
     </main>
 
@@ -230,99 +219,6 @@
             portrait.setAttribute('aria-pressed', String(showingPhoto));
             portrait.setAttribute('aria-label', showingPhoto ? 'Show sketch of Rustem' : 'Show photograph of Rustem');
         });
-        const canvas = document.getElementById('ulam');
-        const ctx = canvas.getContext('2d');
-        const S = 5;
-        const RATE = 30;
-        const MAX_FRAME_GAP = 100;
-        const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-        let raf;
-        let last = null, carry = 0;
-        let canvasWidth = 0, canvasHeight = 0, canvasDpr = 0;
-        let cx = 0, cy = 0, maxOff = 0;
-        let x = 0, y = 0, dx = 1, dy = 0;
-        let seg = 1, segLeft = 1, turns = 0, n = 1;
-        let finished = false;
-
-        function isPrime(n) {
-            if (n < 2) return false;
-            if (n % 2 === 0) return n === 2;
-            for (let i = 3; i * i <= n; i += 2) if (n % i === 0) return false;
-            return true;
-        }
-
-        function resetWalker() {
-            x = 0; y = 0; dx = 1; dy = 0;
-            seg = 1; segLeft = 1; turns = 0; n = 1;
-        }
-
-        function step() {
-            if (isPrime(n)) {
-                ctx.beginPath();
-                ctx.arc(cx + x * S, cy + y * S, 2, 0, 2 * Math.PI);
-                ctx.fill();
-            }
-            x += dx; y += dy; n++;
-            if (--segLeft === 0) {
-                [dx, dy] = [dy, -dx];
-                if (++turns % 2 === 0) seg++;
-                segLeft = seg;
-            }
-            return Math.max(Math.abs(x), Math.abs(y)) * S <= maxOff;
-        }
-
-        function frame(ts) {
-            if (last === null) last = ts;
-            const elapsed = Math.min(Math.max(ts - last, 0), MAX_FRAME_GAP);
-            carry += elapsed / 1000 * RATE;
-            last = ts;
-            while (carry >= 1 && !finished) {
-                finished = !step();
-                carry--;
-            }
-            if (!finished) raf = requestAnimationFrame(frame);
-        }
-
-        function resume() {
-            cancelAnimationFrame(raf);
-            last = null;
-            carry = 0;
-            if (reducedMotion.matches) {
-                while (!finished) finished = !step();
-                return;
-            }
-            if (!finished) raf = requestAnimationFrame(frame);
-        }
-
-        function resizeCanvas() {
-            const dpr = devicePixelRatio || 1;
-            const w = Math.round(canvas.clientWidth);
-            const h = Math.round(canvas.clientHeight);
-            if (!w || !h) return;
-            if (w === canvasWidth && h === canvasHeight && dpr === canvasDpr) return;
-
-            const targetN = n;
-            canvasWidth = w;
-            canvasHeight = h;
-            canvasDpr = dpr;
-            canvas.width = Math.round(w * dpr);
-            canvas.height = Math.round(h * dpr);
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-            ctx.clearRect(0, 0, w, h);
-            ctx.fillStyle = '#7777ff';
-            cx = w / 2;
-            cy = h / 2;
-            maxOff = Math.min(w, h) / 2 - S;
-
-            resetWalker();
-            while (n < targetN) step();
-            finished = Math.max(Math.abs(x), Math.abs(y)) * S > maxOff;
-            resume();
-        }
-
-        addEventListener('resize', resizeCanvas, { passive: true });
-        reducedMotion.addEventListener?.('change', resume);
-        resizeCanvas();
     </script>
 </body>
 </html>
