@@ -1,0 +1,128 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{libertine}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\usepackage[english]{babel}
+\usepackage{microtype}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage[normalem]{ulem}
+\usepackage[colorlinks=true,allcolors=blue,pdftitle={Rustem Turtayev - Resume},pdfauthor={Rustem Turtayev}]{hyperref}
+\let\plainhref\href
+\renewcommand{\href}[2]{\plainhref{#1}{\uline{[#2]}}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{2em}
+\titleformat{\section}{\large\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{13pt}{7pt}
+\setlist[itemize]{leftmargin=1.2em,itemsep=3pt,topsep=5pt,parsep=0pt,partopsep=0pt}
+\setlist[enumerate]{leftmargin=1.7em,label={[\arabic*]},itemsep=11pt,topsep=3pt,parsep=0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[R]{\small Page \thepage\ of \pageref*{LastPage}}
+\setlength{\footskip}{25pt}
+\newcommand{\position}[4]{\textbf{#1}\hfill #2\par\textit{#3}\hfill #4\par}
+
+\begin{document}
+
+{\LARGE\bfseries Rustem Turtayev}\par
+\vspace{4pt}
+Research Scholar at MATS\par
+\vspace{5pt}
+Phone: +44 7563 691 773\par
+Email: \href{mailto:u1am.n1t7@gmail.com}{u1am.n1t7@gmail.com}\par
+Homepage: \href{https://rustem17.github.io}{rustem17.github.io}\par
+GitHub: \href{https://github.com/rustem17}{github.com/rustem17}\par
+\vspace{8pt}
+\hrule
+
+\section*{Experience}
+
+\position{MATS 9.0 (ML Alignment and Theory Scholars)}{Jan. 2026 -- Present}{Research Scholar; working with Prof. Shi Feng}{London, UK}
+\begin{itemize}
+\item Study the realism of model organisms of misalignment, the science of generalization, and attribute invariance.
+\item Design experiments to distinguish competing ELK-type hypotheses through their predicted behavioral signatures.
+\item Develop an automated model behavior investigation pipeline using steering vectors and linear probes.
+\end{itemize}
+\vspace{4pt}
+
+\position{Palisade Research}{Sep. 2024 -- Nov. 2025}{Research Engineer}{Berkeley, CA (remote)}
+\begin{itemize}
+\item Authored {\itshape\href{https://arxiv.org/abs/2412.02776}{Hacking CTFs with Plain Agents}}, demonstrating autonomous LLM agent solutions for cybersecurity challenges.
+\item Evaluated real-time voice agents on autonomously passing technical interviews \href{https://github.com/PalisadeResearch/pass-interview}{code}.
+\item Trained and evaluated LLM agents with supervised fine-tuning and reinforcement learning in single-machine and multi-node network attack environments \href{https://github.com/PalisadeResearch/hackingdemo}{code}.
+\item Organized the Misalignment Bounty event; evaluated 300+ submissions to produce a public \href{https://huggingface.co/datasets/palisaderesearch/Misalignment-Bounty-Submissions}{dataset} and analysis report.
+\end{itemize}
+\vspace{4pt}
+
+\position{MATS (ML Alignment and Theory Scholars)}{Jan. -- Mar. 2025}{Research Scholar}{Berkeley, CA (remote)}
+\begin{itemize}
+\item Implemented LoRA-based adversarial training on Llama-3, Gemma-2, and Qwen2.5-Coder (7B--9B parameters) to improve jailbreak robustness while preserving general capabilities.
+\end{itemize}
+\vspace{4pt}
+
+\position{Wood Mackenzie}{Jun. 2023 -- Dec. 2024}{Data Engineer}{Astana, Kazakhstan}
+{\small Concurrent with Palisade Research from September 2024.}\par
+\begin{itemize}
+\item Built a Databricks data extraction pipeline processing 100+ GB of records daily.
+\item Improved usable dataset coverage from 88\% to 95\% by testing numerical methods for a data cleaning algorithm.
+\item Built a fine-tuning pipeline for Vision Transformer-based OCR, improving data completeness by 10\%.
+\end{itemize}
+
+\section*{Education}
+\textbf{Nazarbayev University}\hfill Aug. 2018 -- Jun. 2023\par
+B.Sc. in Computer Science, Minor in Mathematics
+
+\newpage
+
+\section*{Publications}
+\begingroup
+\small
+\begin{enumerate}[itemsep=8pt]
+\item David Vella Zarb, \textbf{Rustem Turtayev}, Taywon Min, Jinghua Ou, and Shi Feng.
+{\itshape\href{https://arxiv.org/abs/2606.08243}{Building Comparative Motivation Profiles with Instrumental Interventions}}.
+In: \textit{Advances in Neural Information Processing Systems (NeurIPS), Main Track}. 2026.
+
+\item \textbf{Rustem Turtayev}, Natalia Fedorova, Oleg Serikov, Sergey Koldyba, Lev Avagyan, and Dmitrii Volkov.
+{\itshape\href{https://arxiv.org/abs/2510.19738}{Misalignment Bounty: Crowdsourcing AI Agent Misbehavior}}.
+arXiv preprint arXiv:2510.19738. 2025.
+
+\item A. Chervov, D. Fedoriaka, M. Obozov, E. Konstantinova, A. Naumov, I. Kiselev, A. Sheveleva, I. Koltsov, S. Lytkin, A. Smolensky, A. Soibelman, F. Levkovich-Maslyuk, R. Grimov, D. Volovich, A. Isakov, A. Kostin, M. Litvinov, N. Vilkin-Krom, A. Bidzhiev, A. Krasnyi, M. Evseev, E. Geraseva, L. Grunwald, S. Galkin, E. Koldunov, S. Diner, A. Chevychelov, E. Kudasheva, A. Sychev, Z. Kogan, A. Natyrova, L. Shishina, L. Cheldieva, V. Zamkovoy, D. Kovalenko, O. Papulov, S. Kudashev, D. Shiltsov, \textbf{R. Turtayev}, O. Nikitina, D. Mamayeva, S. Nikolenko, A. Titarenko, A. Dolgorukova, A. Aparnev, O. Debeaupuis, S. Alami, and H. Isambert.
+{\itshape\href{https://arxiv.org/abs/2509.19162}{CayleyPy Growth: Efficient Growth Computations and Hundreds of New Conjectures on Cayley Graphs}}.
+In: \textit{MATH-AI: The 5th Workshop on Mathematical Reasoning and AI at NeurIPS}. 2025.
+
+\item A. Chervov, M. Obozov, A. Soibelman, S. Lytkin, I. Kiselev, S. Fironov, A. Lukyanenko, A. Dolgorukova, A. Ogurtsov, F. Petrov, S. Krymskii, M. Evseev, L. Grunvald, D. Gorodkov, G. Antiufeev, G. Verbii, V. Zamkovoy, L. Cheldieva, I. Koltsov, A. Sychev, A. Eliseev, S. Nikolenko, N. Narynbaev, \textbf{R. Turtayev}, N. Rokotyan, S. Kovalev, A. Rozanov, V. Nelin, S. Ermilov, L. Shishina, D. Mamayeva, A. Korolkova, K. Khoruzhii, and A. Romanov.
+{\itshape\href{https://arxiv.org/abs/2502.18663}{CayleyPy RL: Pathfinding and Reinforcement Learning on Cayley Graphs}}.
+In: \textit{Advances in Theoretical and Mathematical Physics} 30.1 (2026), pp.~211--269.
+
+\item \textbf{Rustem Turtayev}, Artem Petrov, Dmitrii Volkov, and Denis Volk.
+{\itshape\href{https://arxiv.org/abs/2412.02776}{Hacking CTFs with Plain Agents}}.
+arXiv preprint arXiv:2412.02776. 2024.
+\end{enumerate}
+\endgroup
+
+\section*{Talks}
+\textbf{Building Comparative Motivation Profiles}\hfill Jun. 2026\par
+Invited talk, Google DeepMind \href{https://docs.google.com/presentation/d/1qTMRi5J3RNZu5grSI4Qcpis-KFT3_OT4wkn2Il33if8/edit?usp=sharing}{slides}.\par
+\vspace{8pt}
+\textbf{Sycophancy Towards Researchers Drives Performative Misalignment}\par
+MATS 9.0 Symposium \href{https://docs.google.com/presentation/d/19yC-NOMdDw1FunHvScEOtZZTXYNgJ42b2gmoLMwge2k/edit?usp=sharing}{slides}.\hfill Mar. 2026
+
+\section*{Grants}
+\textbf{UK AI Security Institute}\hfill Feb. -- Mar. 2025\par
+\textit{Bounty Programme research grant}\par
+\vspace{4pt}
+Developed agent scaffolding for cybersecurity benchmarks using the Inspect AI framework to study the offensive capabilities of frontier models.
+
+\section*{Technical Skills}
+\textbf{Tools:} Python, SQL, PyTorch, JAX, PySpark, Databricks, Inspect, Logfire, wandb, Git, \LaTeX.\par
+\vspace{6pt}
+\textbf{Research:} LLM post-training, supervised fine-tuning, reinforcement learning, LLM agents and evaluations, AI alignment, scalable oversight, OCR.
+
+\end{document}
