@@ -18,44 +18,43 @@
             color: #111;
             font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
             font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.8;
         }
         main {
             width: 100%;
-            max-width: 710px;
+            max-width: 720px;
             margin: 0 auto;
-            padding: 48px 24px 32px;
+            padding: 72px 32px 80px;
         }
         .intro-header {
             display: flex;
             align-items: center;
-            gap: 22px;
-            margin-bottom: 22px;
+            gap: 28px;
         }
         .intro-title { margin: 0; font-size: 1em; font-weight: 400; }
-        h2 { font-size: 1em; font-weight: 500; margin: 0 0 22px; }
-        .right-column > section { margin-top: 48px; }
-        p { margin: 0 0 13px; }
-        .bio-toggle { padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; text-decoration: underline; text-decoration-color: #aaa; text-underline-offset: 3px; }
-        .bio-toggle[aria-expanded="false"]::after { content: " ..."; letter-spacing: 0.15em; }
-        .bio-toggle:focus-visible { outline: 2px solid #111; outline-offset: 4px; }
+        h2 { font-size: 1em; font-weight: 500; margin: 0 0 32px; }
+        .right-column > section { margin-top: 80px; }
+        p { margin: 0 0 24px; }
+        .intro > :last-child, .publication > :last-child { margin-bottom: 0; }
         a { color: #0000ee; text-decoration: underline; text-underline-offset: 3px; }
         a:hover { text-decoration-color: currentColor; }
         a:focus-visible, .portrait:focus-visible { outline: 2px solid #111; outline-offset: 4px; }
-        .links { display: flex; flex-wrap: wrap; gap: 5px 18px; margin: 32px 0 0; }
+        .links { display: flex; flex-wrap: wrap; gap: 12px 20px; margin: 32px 0 0; }
         .links a { white-space: nowrap; }
-        .contact { margin: 10px 0 36px; color: #555; }
-        .featured-publication { margin-bottom: 32px; }
+        .contact { margin: 16px 0 48px; color: #555; }
+        .featured-publication { margin-bottom: 56px; }
         .featured-publication:last-child, .publication:last-child { margin-bottom: 0; }
         .publication-title { font-weight: 400; }
         .publication .publication-title { font-weight: 400; }
-        .publication-figure { display: block; width: 100%; margin: 12px auto 0; }
+        .publication-figure { display: block; width: 100%; margin: 24px auto 0; }
         .publication-figure img { display: block; width: 100%; height: auto; }
-        .publication { margin-bottom: 26px; }
-        .authors { font-size: 12px; color: #666; margin: 3px 0; }
-        .venue { font-size: 12px; font-weight: 400; margin: 4px 0; }
-        article a, .publication > a { font-size: 12px; }
-        footer { margin-top: 48px; padding-top: 14px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+        .publication { margin-bottom: 40px; }
+        .authors { font-size: 12px; line-height: 1.7; color: #666; margin: 8px 0 0; }
+        .publication-title + .authors { margin-top: 4px; }
+        .venue { font-size: 12px; line-height: 1.7; font-weight: 400; margin: 4px 0 0; }
+        .publication-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 12px; }
+        .publication > p { margin-top: 16px; }
+        footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
         .portrait {
             position: relative;
             flex: 0 0 112px;
@@ -78,8 +77,13 @@
             .portrait-sketch { transition: opacity 220ms ease; }
         }
         @media (max-width: 480px) {
-            main { padding: 28px 20px; }
-            .intro-header { gap: 16px; }
+            main { padding: 40px 24px 56px; }
+            .intro-header { gap: 20px; }
+            .links { gap: 12px 16px; }
+            .contact { margin-bottom: 40px; }
+            h2 { margin-bottom: 24px; }
+            .right-column > section, footer { margin-top: 56px; }
+            .featured-publication { margin-bottom: 40px; }
             .portrait { flex-basis: 94px; width: 94px; height: 94px; }
         }
     </style>
@@ -108,26 +112,15 @@
                 </div>
                 <p class="contact">u1am (dot) n1t7 (at) gmail (dot) com</p>
 
-                <p>I study how to understand and oversee AI systems: what motivates their behavior, how they generalize, and when we can trust our evaluations. I'm a Research Scholar at <a href="https://www.matsprogram.org">MATS</a>, working with Prof. Shi Feng.</p>
+                <p>I study how to understand and oversee AI systems: what motivates their behavior, how they generalize, and when we can trust our evaluations. I'm currently a Research Scholar at <a href="https://www.matsprogram.org">MATS</a>, working with Prof. Shi Feng.</p>
 
-                <p>My current work asks how realistic model organisms of misalignment are, and where existing alignment and oversight methods may fail under recursive self-improvement (RSI). I'm interested in how these methods, and the assumptions behind them, need to change as models improve themselves. I'm also interested in randomizing the oversight counterparts an untrusted model interacts with, to make it harder to exploit predictable oversight.</p>
+                <p>My current work asks where existing alignment and oversight methods may fail under recursive self-improvement (RSI). I'm interested in how these methods, and the assumptions behind them, need to change as models improve themselves.</p>
 
-                <p class="bio-detail">
-                    <button class="bio-toggle" type="button" aria-expanded="false" aria-controls="bio-rl">More broadly,</button>
-                    <span id="bio-rl" hidden>I'm interested in reinforcement learning: curricula and reward design that provide rich feedback while leaving room for models to discover solutions and develop capabilities themselves. I'm also interested in using RL to transfer capabilities from tasks with crisp, verifiable objectives to more open-ended, fuzzy tasks.</span>
-                </p>
+                <p id="bio-rl">More broadly, I'm interested in how capabilities learned on tasks with crisp, verifiable objectives can transfer to more open-ended, fuzzy tasks—even if only a specific ability transfers or the improvement is small.</p>
 
-                <p class="bio-detail">
-                    <button class="bio-toggle" type="button" aria-expanded="false" aria-controls="bio-previous">Previously,</button>
-                    <span id="bio-previous" hidden>at <a href="https://palisaderesearch.org">Palisade Research</a>, I evaluated LLM agents in offensive security settings and studied their misbehavior.</span>
-                </p>
+                <p id="bio-previous">Previously, at <a href="https://palisaderesearch.org">Palisade Research</a>, I evaluated LLM agents in offensive security settings and studied their misbehavior.</p>
 
-                <p class="bio-detail">
-                    <button class="bio-toggle" type="button" aria-expanded="false" aria-controls="bio-music">Outside research,</button>
-                    <span id="bio-music" hidden>I'm fascinated by how music takes shape: how simple ideas become deeply expressive through the way they develop, intertwine, and return. I'm drawn to the interplay of structure and feeling, and I'd love to build tools that help explore and compose music with that kind of depth.</span>
-                </p>
-
-
+                <p id="bio-music">Outside research, every now and then, I listen to music by different composers and find myself drawn to pieces that seemed strange just a few months earlier. Variety is the spice of life, and the existing repertoire is finite, so I'm interested in whether we can generate new classical pieces with unfamiliar musical structures. Taste is subjective, but in a fugue, for example, we can examine how the subject is developed and how the voices interact, and ask how those patterns differ from existing works.</p>
             </div>
 
         </div>
@@ -141,7 +134,9 @@
                             <div class="publication-title">Building Comparative Motivation Profiles with Instrumental Interventions</div>
                             <div class="authors">David Vella Zarb, Rustem Turtayev, Taywon Min, Jinghua Ou, Shi Feng · 2026</div>
                             <div class="venue">NeurIPS 2026 · Main Track</div>
-                            <a href="https://arxiv.org/abs/2606.08243">[arXiv]</a>
+                            <div class="publication-links">
+                                <a href="https://arxiv.org/abs/2606.08243">[arXiv]</a>
+                            </div>
                         </div>
                         <div class="publication-figure">
                             <img src="assets/papers/motivation-profiles-figure.webp" alt="Diagram comparing symmetric interventions for performative and scheming motivations" width="1140" height="520" loading="lazy" decoding="async">
@@ -153,7 +148,10 @@
                             <div class="publication-title">Hacking CTFs with Plain Agents</div>
                             <div class="authors">Rustem Turtayev, Artem Petrov, Dmitrii Volkov, Denis Volk · 2024</div>
                             <div class="venue">Preprint</div>
-                            <a href="https://arxiv.org/abs/2412.02776">[arXiv]</a> <a href="https://github.com/palisaderesearch/intercode">[code]</a>
+                            <div class="publication-links">
+                                <a href="https://arxiv.org/abs/2412.02776">[arXiv]</a>
+                                <a href="https://github.com/palisaderesearch/intercode">[code]</a>
+                            </div>
                         </div>
                         <div class="publication-figure">
                             <img src="assets/papers/hacking-ctfs-figure.webp" alt="Chart showing InterCode-CTF tasks solved rising from 40 to 81 over four weeks" width="1190" height="310" loading="lazy" decoding="async">
@@ -168,19 +166,27 @@
                     <div class="publication-title">Misalignment Bounty: Crowdsourcing AI Agent Misbehavior</div>
                     <div class="authors">Rustem Turtayev et al. · 2025</div>
                     <div class="venue">Preprint</div>
-                    <a href="https://arxiv.org/abs/2510.19738">[arXiv]</a> <a href="https://palisaderesearch.org/blog/misalignment-bounty">[blog]</a> <a href="https://huggingface.co/datasets/palisaderesearch/Misalignment-Bounty-Submissions">[dataset]</a>
+                    <div class="publication-links">
+                        <a href="https://arxiv.org/abs/2510.19738">[arXiv]</a>
+                        <a href="https://palisaderesearch.org/blog/misalignment-bounty">[blog]</a>
+                        <a href="https://huggingface.co/datasets/palisaderesearch/Misalignment-Bounty-Submissions">[dataset]</a>
+                    </div>
                 </div>
                 <div class="publication">
                     <div class="publication-title">CayleyPy Growth: Efficient Growth Computations and Hundreds of New Conjectures on Cayley Graphs</div>
                     <div class="authors">A. Chervov et al. · 2025</div>
                     <div class="venue">NeurIPS 2025 · Math-AI Workshop</div>
-                    <a href="https://arxiv.org/abs/2509.19162">[arXiv]</a>
+                    <div class="publication-links">
+                        <a href="https://arxiv.org/abs/2509.19162">[arXiv]</a>
+                    </div>
                 </div>
                 <div class="publication">
                     <div class="publication-title">CayleyPy RL: Pathfinding and Reinforcement Learning on Cayley Graphs</div>
                     <div class="authors">A. Chervov et al. · 2025</div>
                     <div class="venue">Advances in Theoretical and Mathematical Physics, 30(1), 211–269 (2026)</div>
-                    <a href="https://arxiv.org/abs/2502.18663">[arXiv]</a>
+                    <div class="publication-links">
+                        <a href="https://arxiv.org/abs/2502.18663">[arXiv]</a>
+                    </div>
                 </div>
             </section>
 
@@ -198,12 +204,16 @@
                 <div class="publication">
                     <div>Building Comparative Motivation Profiles at Google DeepMind</div>
                     <div class="authors">June 2026</div>
-                    <a href="https://docs.google.com/presentation/d/1qTMRi5J3RNZu5grSI4Qcpis-KFT3_OT4wkn2Il33if8/edit?usp=sharing">[slides]</a>
+                    <div class="publication-links">
+                        <a href="https://docs.google.com/presentation/d/1qTMRi5J3RNZu5grSI4Qcpis-KFT3_OT4wkn2Il33if8/edit?usp=sharing">[slides]</a>
+                    </div>
                 </div>
                 <div class="publication">
                     <div>Sycophancy Towards Researchers Drives Performative Misalignment at the MATS 9.0 Symposium</div>
                     <div class="authors">March 2026</div>
-                    <a href="https://docs.google.com/presentation/d/19yC-NOMdDw1FunHvScEOtZZTXYNgJ42b2gmoLMwge2k/edit?usp=sharing">[slides]</a>
+                    <div class="publication-links">
+                        <a href="https://docs.google.com/presentation/d/19yC-NOMdDw1FunHvScEOtZZTXYNgJ42b2gmoLMwge2k/edit?usp=sharing">[slides]</a>
+                    </div>
                 </div>
             </section>
         </div>
@@ -214,13 +224,6 @@
     </main>
 
     <script>
-        document.querySelectorAll('.bio-toggle').forEach(button => {
-            button.addEventListener('click', () => {
-                const expanded = button.getAttribute('aria-expanded') !== 'true';
-                button.setAttribute('aria-expanded', String(expanded));
-                document.getElementById(button.getAttribute('aria-controls')).hidden = !expanded;
-            });
-        });
         const portrait = document.querySelector('.portrait');
         portrait.addEventListener('click', () => {
             const showingPhoto = portrait.getAttribute('aria-pressed') !== 'true';
