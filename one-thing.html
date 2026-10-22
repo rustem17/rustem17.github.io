@@ -15,11 +15,20 @@
         a:hover { text-decoration-color: currentColor; }
         a:focus-visible, button:focus-visible { outline: 2px solid #111; outline-offset: 4px; }
         figure { margin: 32px 0 0; }
-        canvas { display: block; width: min(100%, 80svh, 960px); aspect-ratio: 1; margin: 0 auto; }
+        .spiral { position: relative; width: min(100%, 80svh, 960px); margin: 0 auto; }
+        canvas { display: block; width: 100%; aspect-ratio: 1; }
         figcaption { max-width: 662px; margin: 32px auto 0; }
         p { margin: 0; }
         button { padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
         header > * { color: #0000ee; text-decoration: none; }
+        .dot { position: absolute; width: 24px; height: 24px; border-radius: 50%; transform: translate(-50%, -50%); }
+        .dot:hover { box-shadow: inset 0 0 0 1px #0000ee; }
+        .dot::after { content: ''; position: absolute; inset: 5px; border: 1px solid #0000ee; border-radius: 50%; }
+        @media (prefers-reduced-motion: no-preference) { .dot::after { animation: pulse 1.6s ease-out infinite; } }
+        @keyframes pulse { from { transform: scale(0.6); opacity: 1; } to { transform: scale(2); opacity: 0; } }
+        #card { position: absolute; inset: auto; width: min(280px, 100vw - 32px); margin: 0; padding: 12px; border: 1px solid #ddd; background: #fff; color: #444; font-size: 12px; }
+        #card img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; margin-bottom: 8px; }
+        #card p:not(:last-child) { margin-bottom: 8px; }
         @media (max-width: 480px) { main { padding: 24px 20px 32px; } }
     </style>
 </head>
@@ -30,7 +39,10 @@
             <button id="pause" type="button" aria-label="pause" hidden>||</button>
         </header>
         <figure>
-            <canvas id="ulam" role="img" aria-label="A growing Ulam spiral, with blue dots marking prime numbers."></canvas>
+            <div class="spiral">
+                <canvas id="ulam" role="img" aria-label="A growing Ulam spiral, with grey dots marking prime numbers."></canvas>
+                <div id="card" popover></div>
+            </div>
             <figcaption>
                 <p>An <a href="https://en.wikipedia.org/wiki/Ulam_spiral">Ulam spiral</a>.
                 Integers arranged in a square spiral, with a dot at every prime.</p>
@@ -52,6 +64,11 @@
         let x = 0, y = 0, dx = 1, dy = 0;
         let seg = 1, segLeft = 1, turns = 0, n = 1;
         let finished = false;
+        const ITEMS = [
+            { n: 41, img: 'almaty.jpeg', alt: 'Rustem in Almaty', text: 'photo taken in Almaty, 2025' },
+        ];
+        const card = document.getElementById('card');
+        const dots = {};
 
         function isPrime(n) {
             if (n < 2) return false;
@@ -67,6 +84,13 @@
 
         function step() {
             if (isPrime(n)) {
+                const dot = dots[n];
+                if (dot) {
+                    dot.style.left = `${cx + x * S}px`;
+                    dot.style.top = `${cy + y * S}px`;
+                    dot.hidden = false;
+                }
+                ctx.fillStyle = dot ? '#0000ee' : '#aaa';
                 ctx.beginPath();
                 ctx.arc(cx + x * S, cy + y * S, 2, 0, 2 * Math.PI);
                 ctx.fill();
@@ -90,9 +114,16 @@
                 carry--;
             }
             if (!finished) raf = requestAnimationFrame(frame);
+            else updateButton();
+        }
+
+        function updateButton() {
+            pauseButton.textContent = finished ? '|<' : paused ? '|>' : '||';
+            pauseButton.setAttribute('aria-label', finished ? 'restart' : paused ? 'resume' : 'pause');
         }
 
         function resume() {
+            updateButton();
             cancelAnimationFrame(raf);
             last = null;
             carry = 0;
@@ -111,32 +142,60 @@
             if (!w || !h) return;
             if (w === canvasWidth && h === canvasHeight && dpr === canvasDpr) return;
 
-            const targetN = n;
             canvasWidth = w;
             canvasHeight = h;
             canvasDpr = dpr;
             canvas.width = Math.round(w * dpr);
             canvas.height = Math.round(h * dpr);
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-            ctx.clearRect(0, 0, w, h);
-            ctx.fillStyle = '#7777ff';
             cx = w / 2;
             cy = h / 2;
             maxOff = Math.min(w, h) / 2 - S;
+            redraw(n);
+        }
 
+        function redraw(targetN) {
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            card.togglePopover(false);
+            for (const dot of Object.values(dots)) dot.hidden = true;
             resetWalker();
             while (n < targetN) step();
             finished = Math.max(Math.abs(x), Math.abs(y)) * S > maxOff;
             resume();
         }
 
+        function openCard(item, dot) {
+            card.innerHTML = (item.img ? `<img src="${item.img}" alt="${item.alt}">` : '') + `<p>${item.text}</p>` + (item.href ? `<a href="${item.href}">[${item.label}]</a>` : '');
+            card.togglePopover(true);
+            const d = dot.getBoundingClientRect();
+            const px = d.left + d.width / 2, py = d.top + d.height / 2;
+            let left = px + 16;
+            if (left + card.offsetWidth > innerWidth - 16) left = px - 16 - card.offsetWidth;
+            card.style.left = `${Math.max(16, left) + scrollX}px`;
+            card.style.top = `${Math.max(16, Math.min(py - card.offsetHeight / 2, innerHeight - card.offsetHeight - 16)) + scrollY}px`;
+        }
+
+        for (const item of ITEMS) {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'dot';
+            dot.hidden = true;
+            dot.setAttribute('aria-label', `prime ${item.n}`);
+            dot.addEventListener('click', () => openCard(item, dot));
+            card.before(dot);
+            dots[item.n] = dot;
+        }
+
         const pauseButton = document.getElementById('pause');
         pauseButton.hidden = reducedMotion.matches;
         pauseButton.addEventListener('click', () => {
-            paused = !paused;
-            pauseButton.textContent = paused ? '|>' : '||';
-            pauseButton.setAttribute('aria-label', paused ? 'resume' : 'pause');
-            resume();
+            if (finished) {
+                paused = false;
+                redraw(1);
+            } else {
+                paused = !paused;
+                resume();
+            }
         });
         reducedMotion.addEventListener('change', () => {
             pauseButton.hidden = reducedMotion.matches;
