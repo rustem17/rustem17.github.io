@@ -11,32 +11,29 @@
         body { margin: 0; background: #fff; color: #444; font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; font-size: 14px; line-height: 1.6; }
         main { max-width: 1056px; margin: 0 auto; padding: 32px 24px 48px; }
         header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
-        h1 { margin: 0; font-size: 1em; font-weight: 400; color: #111; }
         a { color: #0000ee; text-decoration: underline; text-underline-offset: 3px; }
         a:hover { text-decoration-color: currentColor; }
         a:focus-visible, button:focus-visible { outline: 2px solid #111; outline-offset: 4px; }
         figure { margin: 32px 0 0; }
         canvas { display: block; width: min(100%, 80svh, 960px); aspect-ratio: 1; margin: 0 auto; }
         figcaption { max-width: 662px; margin: 32px auto 0; }
-        p { margin: 0 0 12px; }
-        .note { font-size: 12px; color: #666; }
-        button { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+        p { margin: 0; }
+        button { padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+        header > * { color: #111; text-decoration: none; }
         @media (max-width: 480px) { main { padding: 24px 20px 32px; } }
     </style>
 </head>
 <body>
     <main>
         <header>
-            <h1>one specific thing</h1>
-            <a href="./">back to my page</a>
+            <a href="./" aria-label="back to my page">&lt;--</a>
+            <button id="pause" type="button" aria-label="pause" hidden>||</button>
         </header>
         <figure>
             <canvas id="ulam" role="img" aria-label="A growing Ulam spiral, with blue dots marking prime numbers."></canvas>
             <figcaption>
                 <p>An <a href="https://en.wikipedia.org/wiki/Ulam_spiral">Ulam spiral</a>.
                 Integers arranged in a square spiral, with a dot at every prime.</p>
-                <p><button id="pause" type="button" hidden>pause</button></p>
-                <p class="note">it's just a random thing that i wanted show; next time (uncertain when) will be a different thing; maybe a ping pong game with AI?</p>
             </figcaption>
         </figure>
     </main>
@@ -137,7 +134,8 @@
         pauseButton.hidden = reducedMotion.matches;
         pauseButton.addEventListener('click', () => {
             paused = !paused;
-            pauseButton.textContent = paused ? 'resume' : 'pause';
+            pauseButton.textContent = paused ? '|>' : '||';
+            pauseButton.setAttribute('aria-label', paused ? 'resume' : 'pause');
             resume();
         });
         reducedMotion.addEventListener('change', () => {
